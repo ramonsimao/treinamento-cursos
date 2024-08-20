@@ -1,0 +1,1045 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Conteúdo do curso de Redes: dos conceitos iniciais à criação de uma intranet</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e2d3f5f4-bc15-44ca-ab87-6ba89c20d6a4" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/network_gray.svg"/></div><h1 class="page-title"><strong><strong>Conteúdo do curso de Redes: dos conceitos iniciais à criação de uma intranet</strong></strong></h1><p class="page-description"></p></header><div class="page-body"><p id="e323a2dc-af21-4d8a-b98e-4dc9d45b4705" class="">
+</p><nav id="0df99272-d84a-46fe-9289-29ac0ca29637" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dc614844-5c94-4f1f-88da-594dbf004074">Ferramentas</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aab96856-38e3-4b8d-8c0a-70ba9f7ef301">Cisco Packet Tracer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bbc21bfe-59f0-4a80-bf40-8426254c1614"><strong>Wireshark</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#16cee15b-9c80-4c67-ae38-48f520454bd1"><strong>Meu IP</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e11923c2-af24-4e57-a931-d901a4230cd1">Camadas de Redes</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#350fc94f-3534-43ef-b423-e9f106c5fec0">Dispositivo (Celular)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ea437f23-a728-4374-afdf-b29edba8bf77">Rede (Roteador)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a9c89a16-33c2-4b45-a20b-f51289b93a13">Comandos</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4a0679c9-9d85-4342-bd8d-a785748368ae">Testar conexão com um servidor na rede</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#99b8819a-0b7b-4b77-b3f8-2bf75a797f4e">Obter as configurações de IP de uma máquina</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9a2e7a65-e4cc-4204-ac11-7fd906b37b5b"><strong>Exemplo prático</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6988e6ea-c268-4e6f-83af-32d50ffa77c3"><strong>Estrutura</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3ea92abe-6f2b-4bfc-b8cf-4700e1653a84"><strong>Configuração da Intranet</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#28deb9a0-1c97-4172-9d2b-777c31b550ce"><strong>Configurar o DHCP</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5b1f3b7e-95eb-4412-8908-72c2d710cbd9"><strong>Configurar o Servidor DNS</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f0408d8a-e05c-459a-9e0f-2add1c3c8bb9">Conceitos</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e3efb76d-ddb1-4e3a-b615-34d1c2fdcf8b"><strong>Endereçamento IP</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1dcff861-7f18-4292-99ed-5e6f4508d0c5"><strong>Protocolos</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b4087d6e-4d0a-4145-a7dc-f878de7112cc"><strong>Máscara de sub-rede</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#694dd839-c29c-440e-8370-01dee0baba9a"><strong>Default Gateway</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d8b1e706-e4d9-4c1c-91c0-2a4d8514ad44">Equipamento</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d231187-8303-4d0f-a319-01acdb596fb6">Hub</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fc1448ee-8f19-4c0b-9644-4d1452cec76d"><strong>Switch</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bab4f3dd-6aa5-4397-ba5e-d342d52df00d"><strong>Roteador</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e9a5b3fd-7dc0-4805-bad6-b145493cd33c"><a href="Treinamentos%20e%20Cursos%20014c855bd06c46a7b6cdfb712d6f7307/Escolas%20DB%20f23bc75fc90447dc95075dd240f72bf1/Alura%2044250c0c43574cc6906cb8a358769376.html"><strong>Cabos</strong></a></a></div></nav><h1 id="dc614844-5c94-4f1f-88da-594dbf004074" class="">Ferramentas</h1><hr id="7cc49d31-9786-42f2-ae7e-19bb87f82a4b"/><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Cisco Packet Tracer</summary><div class="indented"><p id="8e6dabbf-0aea-4a9e-bdd0-e2d249bcd21a" class="">Serve para simular um ambiente virtual de uma rede</p><figure id="ec6afeb4-443c-4949-994c-08b5f6e796ba"><a href="https://skillsforall.com/resources/lab-downloads?userLang=pt-BR" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Skills for All Resource Hub</div><div class="bookmark-description">Your one-stop for learning resources used within our courses such as hands-on practice activities and our network simulation tool, Cisco Packet Tracer.</div></div><div class="bookmark-href"><img src="https://skillsforall.com/favicon.ico" class="icon bookmark-icon"/>https://skillsforall.com/resources/lab-downloads?userLang=pt-BR</div></div><img src="https://socialgoodplatform.com/p/ff9e491c-49be-4734-803e-a79e6e83dab1/bec0ab81-f0cf-4b48-88ef-a2f7c1f8128c/image.png?ut=1619654083258" class="bookmark-image"/></a></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Wireshark</strong></summary><div class="indented"><p id="9d734a7c-8f10-4c85-a8e7-d881981fe773" class="">O Wireshark tem como principal utilização analisar protocolos que trafegam na rede com o intuito de verificar problemas que possam existir.</p><figure id="c64962bc-b945-402d-b9fb-c99a118a6f45"><a href="https://www.wireshark.org/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Wireshark · Go Deep</div><div class="bookmark-description">Wireshark: The world&#x27;s most popular network protocol analyzer</div></div><div class="bookmark-href"><img src="https://www.wireshark.org/assets/icons/favicon.ico" class="icon bookmark-icon"/>https://www.wireshark.org/</div></div><img src="https://www.wireshark.org/assets/img/wireshark-logo-big.png" class="bookmark-image"/></a></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Meu IP</strong></summary><div class="indented"><p id="ca0051d5-805e-4e2e-98e0-e1c997163d63" class="">Ferramenta online capaz de identificar o IP que meu dispositivo está usando para sair para internet (IP público) a partir do IP privado do dispositivo</p><figure id="062146fb-99e0-4a49-b990-04ecba402e60"><a href="https://meuip.com.br/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">MeuIP - Qual é o meu ip?</div><div class="bookmark-description">Descubra aqui qual é o seu IP Internet e acesse as melhores ferramentas de diagnostico de sua rede, Medidor e teste Velocidade</div></div><div class="bookmark-href"><img src="https://meuip.com.br/img/favicon.ico" class="icon bookmark-icon"/>https://meuip.com.br/</div></div></a></figure></div></details><h1 id="e11923c2-af24-4e57-a931-d901a4230cd1" class="">Camadas de Redes</h1><hr id="3eaa4753-e706-45a7-8b91-626aa33f8d16"/><h3 id="350fc94f-3534-43ef-b423-e9f106c5fec0" class="">Dispositivo (Celular)</h3><ul id="721d6009-1656-4ce4-8643-01c76b3169ed" class="toggle"><li><details open=""><summary>Aplicação</summary><ul id="7efc86b4-db44-48d5-b392-de2350bc9ac7" class="bulleted-list"><li style="list-style-type:disc">Dispositivos com acesso a rede </li></ul></details></li></ul><ul id="6e2dc1a1-dd4f-4b23-acfb-3611d6cdca2f" class="toggle"><li><details open=""><summary>Transporte</summary><ul id="805b7bf7-4c66-4134-b483-aff457b6ab04" class="bulleted-list"><li style="list-style-type:disc">Prepara (empacota) as mensagens para transportá-las através da rede</li></ul><ul id="902bd8f0-f781-43cf-bc9e-5aa6b0811b11" class="bulleted-list"><li style="list-style-type:disc">TCP é o principal protocolo da camada de transporte. A principal função da camada de transporte é justamente prover comunicação segura e eficiente entre processos de aplicação em dispositivos computacionais. No caso do website, estamos falando em comunicação entre os processos do navegador - executados em nosso computador - e processos do website - executados em um servidor.</li></ul></details></li></ul><h3 id="ea437f23-a728-4374-afdf-b29edba8bf77" class="">Rede (Roteador)</h3><ul id="51042952-3dd6-476f-9a95-464687fa6908" class="bulleted-list"><li style="list-style-type:disc">Responsável por conectar dispositivos diferentes através de protocolos como o IP</li></ul><ul id="a8fd4f91-523b-4f2d-b0e0-adf1d2e760a5" class="toggle"><li><details open=""><summary>IP</summary><ul id="2e24acbf-e3e9-4afd-a597-09ba3ea93cef" class="bulleted-list"><li style="list-style-type:disc">Adiciona o cabeçalho aos pacotes e roteamento</li></ul></details></li></ul><ul id="30c295d0-0624-4d2f-9f5e-7c3d45929656" class="toggle"><li><details open=""><summary>Física</summary><ul id="678aca1c-d3d2-41b9-ad55-1e757ce8c746" class="bulleted-list"><li style="list-style-type:disc">Onde a mensagem é traduzida para sinais físicos para ser transportado pelo cabeamento onde será recebido em outra estrutura de rede que fará a conversão da mensagem do meio físico para o protocolo de comunicação e dará o caminho inverso da comunicação.</li></ul></details></li></ul><h1 id="a9c89a16-33c2-4b45-a20b-f51289b93a13" class="">Comandos</h1><hr id="9b5a0d96-80e3-4391-9735-f33438926f0a"/><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Testar conexão com um servidor na rede</summary><div class="indented"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a43d50dd-bbfb-462b-acdb-5e9faeda723c" class="code"><code class="language-PowerShell">## Envia pacotes de rede para o servidor da alura
+## O parâmetro &quot;/4&quot; especifica que o IP que irá aparecer será do tipo IPv4
+## O comando ping é usado justamente para testar a conectividade entre 2 dispositivos.
+ping /4 www.alura.com.br
+
+## Resultado
+Disparando www.alura.com.br [104.26.4.131] com 32 bytes de dados:
+## Exibe o IP para onde os pacotes foram enviados, o tamanho do pacote em bytes, o tempo total do envio e o tempo de vida do envio (TTL)
+Resposta de 104.26.4.131: bytes=32 tempo=123ms TTL=57
+Resposta de 104.26.4.131: bytes=32 tempo=132ms TTL=57
+Resposta de 104.26.4.131: bytes=32 tempo=134ms TTL=57
+Resposta de 104.26.4.131: bytes=32 tempo=125ms TTL=57
+
+Estatísticas do Ping para 104.26.4.131:
+    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de
+             perda),
+Aproximar um número redondo de vezes em milissegundos:
+    Mínimo = 123ms, Máximo = 134ms, Média = 128ms
+
+### Este comando informa o caminho que o pacote faz do dispositivo fonte até o destino final
+## O parâmetro &quot;/4&quot; especifica que o IP que irá aparecer será do tipo IPv4
+## No Linux, o camando deve ser primeiramente instalado, caso ainda não tenha sido, através do seguinte comando: &quot;sudo apt-get install traceroute&quot;
+tracert /4 www.alura.com.br
+
+## Resultado
+Rastreando a rota para www.alura.com.br [104.26.4.131]
+com no máximo 30 saltos:
+
+  ## Este primeiro IP corresponde ao Gateway Padrão da rede de origem
+  1     2 ms     2 ms     1 ms  192.168.0.1
+  2    39 ms    16 ms    12 ms  b3d03801.virtua.com.br [179.208.56.1]
+  3    15 ms    23 ms    12 ms  c9064a95.virtua.com.br [201.6.74.149]
+  4    15 ms    13 ms    13 ms  c9064182.virtua.com.br [201.6.65.130]
+  5    39 ms    16 ms    16 ms  embratel-H0-5-0-1-agg02.spoph.embratel.net.br [200.208.50.1]
+  6   143 ms   142 ms   140 ms  ebt-H1-3-0-1-tcore01.spolp.embratel.net.br [200.230.131.7]
+  7   134 ms   133 ms   133 ms  ebt-B1154-intl04.mianap.embratel.net.br [200.230.220.150]
+  8   141 ms   129 ms   137 ms  ebt-B101-intl03.mianap.embratel.net.br [200.230.252.201]
+  9   150 ms   136 ms   142 ms  198.32.243.60
+ 10   126 ms   128 ms   126 ms  172.70.80.4
+ ## Este útimo IP corresponde ao IP de destino do host &quot;www.alura.com.br&quot;
+ 11   125 ms   124 ms   125 ms  104.26.4.131
+
+Rastreamento concluído.</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Obter as configurações de IP de uma máquina</summary><div class="indented"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9b67c3ee-8f44-469e-b1ed-94f5e6fecce7" class="code"><code class="language-PowerShell">## Exibe uma série de informações relativas às configurações de IP e endereços de rede
+ipconfig/all
+
+## ResultadoConfiguração de IP do Windows
+
+   Nome do host. . . . . . . . . . . . . . . . : NOTEBOOK
+   Sufixo DNS primário . . . . . . . . . . . . :
+   Tipo de nó. . . . . . . . . . . . . . . . . : híbrido
+   Roteamento de IP ativado. . . . . . . . . . : não
+   Proxy WINS ativado. . . . . . . . . . . . . : não
+
+Adaptador de Rede sem Fio Conexão Local* 1:
+
+   Estado da mídia. . . . . . . . . . . . . .  : mídia desconectada
+   Sufixo DNS específico de conexão. . . . . . :
+   Descrição . . . . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter
+   Endereço Físico . . . . . . . . . . . . . . : ENDEREÇO
+   DHCP Habilitado . . . . . . . . . . . . . . : Sim
+   Configuração Automática Habilitada. . . . . : Sim
+
+Adaptador de Rede sem Fio Conexão Local* 10:
+
+   Estado da mídia. . . . . . . . . . . . . .  : mídia desconectada
+   Sufixo DNS específico de conexão. . . . . . :
+   Descrição . . . . . . . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter #2
+   Endereço Físico . . . . . . . . . . . . . . : ENDEREÇO
+   DHCP Habilitado . . . . . . . . . . . . . . : Não
+   Configuração Automática Habilitada. . . . . : Sim
+
+Adaptador de Rede sem Fio Wi-Fi:
+
+   Sufixo DNS específico de conexão. . . . . . :
+   Descrição . . . . . . . . . . . . . . . . . : Qualcomm Atheros QCA9377 Wireless Network Adapter
+   Endereço Físico . . . . . . . . . . . . . . : ENDEREÇO
+   DHCP Habilitado . . . . . . . . . . . . . . : Sim
+   Configuração Automática Habilitada. . . . . : Sim
+   Endereço IPv6 . . . . . . . . . . : ENDEREÇO
+   Concessão Obtida. . . . . . . . . . . . . . : quinta-feira, 28 de dezembro de 2023 20:55:20
+   Concessão Expira. . . . . . . . . . . . . . : sexta-feira, 29 de dezembro de 2023 19:15:34
+   Endereço IPv6 . . . . . . . . . . : ENDEREÇO(Preferencial)
+   Endereço IPv6 Temporário. . . . . . . . : ENDEREÇO(Preferencial)
+   Endereço IPv6 de link local . . . . . . . . : ENDEREÇO(Preferencial)
+   Endereço IPv4. . . . . . . .  . . . . . . . : ENDEREÇO(Preferencial) - 
+   Máscara de Sub-rede . . . . . . . . . . . . : 255.255.255.0
+   Concessão Obtida. . . . . . . . . . . . . . : quinta-feira, 28 de dezembro de 2023 20:55:17
+   Concessão Expira. . . . . . . . . . . . . . : quinta-feira, 28 de dezembro de 2023 22:25:17
+   Gateway Padrão. . . . . . . . . . . . . . . : ENDEREÇO
+                                                 ENDEREÇO
+   Servidor DHCP . . . . . . . . . . . . . . . : ENDEREÇO
+   IAID de DHCPv6. . . . . . . . . . . . . . . : ID
+   DUID de Cliente DHCPv6. . . . . . . . . . . : ID
+   Servidores DNS. . . . . . . . . . . . . . . : ENDEREÇO
+                                                 ENDEREÇO
+                                                 ENDEREÇO
+                                                 ENDEREÇO
+   NetBIOS em Tcpip. . . . . . . . . . . . . . : Habilitado
+
+Adaptador Ethernet Conexão de Rede Bluetooth:
+
+   Estado da mídia. . . . . . . . . . . . . .  : mídia desconectada
+   Sufixo DNS específico de conexão. . . . . . :
+   Descrição . . . . . . . . . . . . . . . . . : Bluetooth Device (Personal Area Network)
+   Endereço Físico . . . . . . . . . . . . . . : ENDEREÇO
+   DHCP Habilitado . . . . . . . . . . . . . . : Sim
+   Configuração Automática Habilitada. . . . . : Sim</code></pre></div></details><h1 id="9a2e7a65-e4cc-4204-ac11-7fd906b37b5b" class=""><strong>Exemplo prático</strong></h1><hr id="6a2c8718-0589-4661-b3e2-7aa2f05e2cc1"/><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Estrutura</strong></summary><div class="indented"><p id="7ef09137-e27d-4f2f-8ca9-a65755601de9" class="">Em uma intranet com 6 <mark class="highlight-gray_background"><strong>PCs</strong></mark> conectados entre si por um switch (<strong><mark class="highlight-gray_background">2960-24TT</mark></strong>) roteado por um roteador (<mark class="highlight-gray_background"><strong>1841</strong></mark>) através da interface <mark class="highlight-gray_background"><strong>FastEthernet0/0</strong></mark> (Rede IP: 193.168.3.1/<strong>24</strong>) e que também roteia para uma segunda rede que fornece acesso, através da interface <mark class="highlight-gray_background"><strong>FastEthernet0/1</strong></mark><strong> (</strong>Rede IP: 9.9.9.1/<strong>8)</strong>,  à 2 <mark class="highlight-gray_background"><strong>Servidores</strong></mark> através de outro switch (<strong><mark class="highlight-gray_background">2960-24TT</mark></strong>). Um servidor hospeda uma aplicação Web e o outro servidor será configurado para ser um Servidor DNS.<div class="indented"><figure id="dce60431-eebb-4d92-a245-65b188547ab3" class="image"><a href="Conteudo_do_curso/Untitled.png"><img style="width:835px" src="Conteudo_do_curso/Untitled.png"/></a></figure></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Configuração da Intranet</strong></summary><div class="indented"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Switch 2950-24 (</strong>193.168.3.1/<strong>24)</strong></summary><div class="indented"><ol type="1" id="232a3329-783e-4ca3-88af-b877aa34256f" class="numbered-list" start="1"><li>Conectar os 6 <strong><mark class="highlight-gray_background">PCs</mark></strong> por um cabo direto pela porta FastEthernet de cada PC até as portas de FastEthernet do Switch que irá conectar todos esses 6 <mark class="highlight-gray_background"><strong>PCs</strong></mark> entre si em uma só rede dentro da intranet.+<figure id="78f2bcef-5edb-4de0-8e90-645c6cb57253" class="image"><a href="Conteudo_do_curso/Untitled 1.png"><img style="width:486px" src="Conteudo_do_curso/Untitled_1.png"/></a></figure></li></ol><ol type="1" id="852e73a1-1e15-4406-b3ab-379adaf2a554" class="numbered-list" start="2"><li>É possível configurar esses 6 dispositivos em rede apenas atribuído IPs manualmente e configurando uma rede:<ul id="2901a5ab-85ff-431a-a47e-d93f6526d40d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background">Manufatura 1</mark> (<mark class="highlight-blue">IP</mark>: <strong>193.168.3</strong>.2/24 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>193.168.3</strong>.1)</li></ul><ul id="5c189af2-350b-431d-a615-7b64d4981469" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background">Manufatura 2</mark> (<mark class="highlight-blue">IP</mark>: <strong>193.168.3</strong>.3/24 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>193.168.3</strong>.1)</li></ul><ul id="813ea9b6-49b0-46a5-b3dd-911c4ef77825" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background">Acabamento 1</mark> (<mark class="highlight-blue">IP</mark>: <strong>193.168.3</strong>.4/24 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>193.168.3</strong>.1)</li></ul><ul id="f0f7ba61-de07-4f96-a461-3314fb73aa1a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background">Acabamento 2</mark> (<mark class="highlight-blue">IP</mark>: <strong>193.168.3</strong>.5/24 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>193.168.3</strong>.1)</li></ul><ul id="7304ee14-426c-45f1-9b48-4d4bd658fca2" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background">Embalagem 1</mark> (<mark class="highlight-blue">IP</mark>: <strong>193.168.3</strong>.6/24 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>193.168.3</strong>.1)</li></ul><ul id="f3f99115-88c8-4e73-8c9e-bca429ae40fb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background">Embalagem 2</mark> (<mark class="highlight-blue">IP</mark>: <strong>193.168.3</strong>.7/24 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>193.168.3</strong>.1)</li></ul></li></ol><ol type="1" id="83e01de3-d6a5-486d-ab41-f79720d8d0d4" class="numbered-list" start="3"><li>Para validar se os dispositivos estão conectados em rede, basta realizar um pig de qualquer máquina para outra. Por exemplo: A partir do dispositivo <mark class="highlight-gray_background">Manufatura 1</mark> é possível tentar enviar um <code>ping</code> através do switch para o dispositivo <mark class="highlight-gray_background">Embalagem 1.</mark><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d792cc3c-0f9d-470b-81f2-af1c8a2900f5" class="code"><code class="language-Bash">ping 193.168.3.6
+
+Pinging 193.168.3.6 with 32 bytes of data:
+
+Reply from 193.168.3.6: bytes=32 time&lt;1ms TTL=128
+Reply from 193.168.3.6: bytes=32 time&lt;1ms TTL=128
+Reply from 193.168.3.6: bytes=32 time=1ms TTL=128
+Reply from 193.168.3.6: bytes=32 time=1ms TTL=128
+
+Ping statistics for 193.168.3.6:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 1ms, Average = 0ms</code></pre></li></ol></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Switch 2950-24 (</strong>9.9.9.1/8<strong>)</strong></summary><div class="indented"><ol type="1" id="cbe003eb-4a95-4488-81bd-7461f59f155c" class="numbered-list" start="1"><li>Para essa rede, será conectados dois servidores onde um deles será um servidor de aplicação e outro servirá de servidor DNS.<figure id="00275cf8-9c02-4fc1-b032-4fd7284c5301" class="image"><a href="Conteudo_do_curso/Untitled_2.png"><img style="width:314px" src="Conteudo_do_curso/Untitled_2.png"/></a></figure></li></ol><ol type="1" id="6cdd8551-a3b2-4f9a-ae19-030be6c17d02" class="numbered-list" start="2"><li>Assim como o switch anterior, configura-se os IPs manualmente para os dois servidores conectados.<ul id="b673a6bb-dcfb-4bfc-bd87-611b4fd23307" class="bulleted-list"><li style="list-style-type:disc"><strong><mark class="highlight-gray_background">Servidor Fabrica</mark></strong> (<mark class="highlight-blue">IP</mark>: <strong>9</strong>.0.255.255/8 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>9</strong>.9.9.1)</li></ul><ul id="571a999b-a9ce-4394-8b90-c0272d4f41ad" class="bulleted-list"><li style="list-style-type:disc"><strong><mark class="highlight-gray_background">Servidor DNS</mark></strong> (<mark class="highlight-blue">IP</mark>: <strong>9</strong>.0.9.9/8 |  <mark class="highlight-blue"><strong>Default Gateway</strong></mark><strong>:</strong> <strong>9</strong>.9.9.1)</li></ul></li></ol><ol type="1" id="4ad7a65e-8e18-4c2b-9ab2-751bfab66eda" class="numbered-list" start="3"><li>Para um teste de conexão, podemos <code>enviar</code> um ping a partir de <strong><mark class="highlight-gray_background">Servidor Fabrica</mark></strong> para <strong><mark class="highlight-gray_background">Servidor DNS</mark></strong>.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4a4ffed8-4ce1-4eec-a53d-2d7d9e13c742" class="code"><code class="language-Bash">ping 9.0.255.255
+
+Pinging 9.0.255.255 with 32 bytes of data:
+
+Reply from 9.0.255.255: bytes=32 time=1ms TTL=128
+Reply from 9.0.255.255: bytes=32 time=1ms TTL=128
+Reply from 9.0.255.255: bytes=32 time&lt;1ms TTL=128
+Reply from 9.0.255.255: bytes=32 time=5ms TTL=128
+
+Ping statistics for 9.0.255.255:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 5ms, Average = 1ms</code></pre></li></ol></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Roteador 1841</strong></summary><div class="indented"><ul id="0a9fc2c7-d302-44ee-ad2e-2c2a3e848fc0" class="toggle"><li><details open=""><summary>Configurar a intranet conectando a rede 193.168.3.1/24 (<mark class="highlight-gray_background"><strong>FastEthernet0/0</strong></mark>) com a 9.9.9.1/8 (<mark class="highlight-gray_background"><strong>FastEthernet0/1</strong></mark>)</summary><ol type="1" id="7ea348b3-01cd-43ce-8351-cb629cdcbde8" class="numbered-list" start="1"><li>Para acessar o terminal do roteador é necessário um computador conectado através de um Cabo Console onde, no computador, se conecta na porta <mark class="highlight-gray_background"><strong>RS 232</strong></mark> e no roteador é conectado na porta <strong><mark class="highlight-gray_background">console</mark></strong>.</li></ol><ol type="1" id="2d08f0fa-ca7a-4838-8f67-a82d2f22b064" class="numbered-list" start="2"><li>Uma vez conectado um computador, agora é possível acessar o terminal CLI do roteador para configurar as rotas necessárias para conectar as duas redes que até esse momento não se conversam. Esse acesso é feito com o auxilio de uma ferramenta chamada Putty.</li></ol><ol type="1" id="de17da58-6d85-42b0-96b8-8f5041ce52d1" class="numbered-list" start="3"><li>Ao acessar o terminal roteador, é necessário configurar cada interface de ethernet que está conectada ao roteador.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="53fa3564-cf7f-4fe3-a7ae-5de14fdb7153" class="code"><code class="language-Bash">Would you like to enter the initial configuration dialog? [yes/no]:
+$ no
+Router&gt;$ enable
+Router$ configure terminal
+Router(config)$ interface FastEthernet0/0
+Router(config-if)$ ip address 193.168.3.1 255.255.255.0
+Router(config-if)$ no shutdown
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+Router(config-if)$ exit
+
+
+Router(config)$ interface FastEthernet0/1
+Router(config-if)$ ip address 9.9.9.1 255.0.0.0
+Router(config-if)$ no shutdown
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+Router(config-if)$ exit
+
+Router(config)$ exit
+
+Router$ show ip interface FastEthernet 0/0
+FastEthernet0/0 is up, line protocol is up (connected)
+  Internet address is 193.168.3.1/24
+  Broadcast address is 255.255.255.255
+  Address determined by setup command
+  MTU is 1500 bytes
+  Helper address is not set
+  Directed broadcast forwarding is disabled
+  Outgoing access list is not set
+  Inbound  access list is not set
+  Proxy ARP is enabled
+  Security level is default
+  Split horizon is enabled
+  ICMP redirects are always sent
+  ICMP unreachables are always sent
+  ICMP mask replies are never sent
+  IP fast switching is disabled
+  IP fast switching on the same interface is disabled
+  IP Flow switching is disabled
+  IP Fast switching turbo vector
+  IP multicast fast switching is disabled
+  IP multicast distributed fast switching is disabled
+  Router Discovery is disabled
+
+Router$ show ip interface FastEthernet 0/1
+FastEthernet0/1 is up, line protocol is up (connected)
+  Internet address is 9.9.9.1/8
+  Broadcast address is 255.255.255.255
+  Address determined by setup command
+  MTU is 1500 bytes
+  Helper address is not set
+  Directed broadcast forwarding is disabled
+  Outgoing access list is not set
+  Inbound  access list is not set
+  Proxy ARP is enabled
+  Security level is default
+  Split horizon is enabled
+  ICMP redirects are always sent
+  ICMP unreachables are always sent
+  ICMP mask replies are never sent
+  IP fast switching is disabled
+  IP fast switching on the same interface is disabled
+  IP Flow switching is disabled
+  IP Fast switching turbo vector
+  IP multicast fast switching is disabled
+  IP multicast distributed fast switching is disabled
+  Router Discovery is disabled</code></pre></li></ol></details></li></ul><ul id="732061b1-2486-4a09-a966-cc2737e321ff" class="toggle"><li><details open=""><summary>Acessar uma página hospedada no servidor web <strong><mark class="highlight-gray_background">Servidor Fabrica</mark></strong></summary><ol type="1" id="60d69350-9c1d-499e-b658-ed723dd2be0f" class="numbered-list" start="1"><li>A partir de qualquer máquina conectado ao switch conectado na porta <mark class="highlight-gray_background"><strong>FastEthernet0/0</strong></mark> (193.168.3.1/24) do roteador, realizar um ping para o IP do servidor <strong><mark class="highlight-gray_background">Servidor Fabrica</mark></strong>.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="82c06c20-0f41-48ee-b588-b4bfceb45912" class="code"><code class="language-Bash">ping 9.0.255.255
+
+Pinging 9.0.255.255 with 32 bytes of data:
+
+Reply from 9.0.255.255: bytes=32 time&lt;1ms TTL=127
+Reply from 9.0.255.255: bytes=32 time=1ms TTL=127
+Reply from 9.0.255.255: bytes=32 time=1ms TTL=127
+Reply from 9.0.255.255: bytes=32 time&lt;1ms TTL=127
+
+Ping statistics for 9.0.255.255:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 1ms, Average = 0ms</code></pre></li></ol><ol type="1" id="53652483-3232-405d-8448-c028ec36dcd6" class="numbered-list" start="2"><li>A partir de qualquer dispositivo conectado ao switch roteado pela interface <mark class="highlight-gray_background"><strong>FastEthernet0/0</strong></mark>, deverá ser possível acessar a página index em <strong><mark class="highlight-gray_background">Servidor Fabrica</mark></strong> através do endereço http://9.0.255.255/index.html<figure id="82cbef08-7a8f-4ce7-8cbf-8c3fc0cb45ab" class="image"><a href="Conteudo_do_curso/Untitled_3.png"><img style="width:660px" src="Conteudo_do_curso/Untitled_3.png"/></a></figure></li></ol></details></li></ul></div></details></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Configurar o DHCP</strong></summary><div class="indented"><ul id="fa3d3eec-fb00-44b3-8c8c-feebbc08b19f" class="toggle"><li><details open=""><summary><strong>Roteador 1841</strong></summary><ol type="1" id="a0ff1225-45d2-40c5-a44b-aa1e99953a11" class="numbered-list" start="1"><li>Acessar o terminal do roteador pela máquina conectada pelo cabo console e executar os comandos para configurar o DHCP apenas para a rede configurada na porta <mark class="highlight-gray_background"><strong>FastEthernet0/0</strong></mark> (É possível configurar isso para qualquer outra porta mas nesse exemplo será apenas nessa)<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e59acee7-bb12-4fbb-b2dc-d975a64b1008" class="code"><code class="language-Bash">Would you like to enter the initial configuration dialog? [yes/no]:
+$ no
+Router&gt;$ enable
+Router$ configure terminal
+Router(config)$ ip dhcp pool fabrica
+Router(dhcp-config)$ network 193.168.3.1 255.255.255.0
+Router(dhcp-config)$ default-router 193.168.3.1</code></pre></li></ol><ol type="1" id="dc8f11fd-499d-4e63-8513-4f109fd8a912" class="numbered-list" start="2"><li>Ao fim da configuração, é necessário entrar em cada máquina da rede 193.168.3.1/24 para ativar o configuração IP DHCP.</li></ol></details></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Configurar o Servidor DNS</strong></summary><div class="indented"><ul id="0867c6e9-08f4-4031-83ab-9016103262c7" class="toggle"><li><details open=""><summary>Executar no <mark class="highlight-gray_background"><strong>Servidor DNS</strong></mark></summary><ol type="1" id="46933270-e03d-4dfd-9bc9-140a66139875" class="numbered-list" start="1"><li>Acessar o servidor e ir até os serviços (<mark class="highlight-gray_background"><strong>Services</strong></mark>)</li></ol><ol type="1" id="bde7e1ed-9689-45c4-8fc7-912fa1577765" class="numbered-list" start="2"><li>Encontrar o serviço de DNS e cadastrar um DNS que aponte para o servidor <mark class="highlight-gray_background"><strong>Servidor Fabrica(9.0.255.255)</strong></mark> com o nome de <a href="http://www.fabrica.com"><mark class="highlight-gray_background"><strong>www.fabrica.com</strong></mark></a> e ativar o serviço.</li></ol><ol type="1" id="2678b3a8-ffe9-4ba5-b729-4ea071b4d6df" class="numbered-list" start="3"><li>Ao término desta configuração, é necessário configurar o servidor de DNS no IP Configuration da máquina que pretende acessar o <mark class="highlight-gray_background"><strong>Servidor Fabrica</strong></mark> pelo DNS <a href="http://www.fabrica.com"><mark class="highlight-gray_background"><strong>www.fabrica.com</strong></mark></a><ol type="a" id="8af2dc63-0b29-40f2-9dc0-d6cee7941fbd" class="numbered-list" start="1"><li>Caso o IP da máquina esteja manualmente atribuído, basta configurar o IP do <mark class="highlight-gray_background"><strong>Servidor DNS</strong></mark> como DNS Server da máquina;<figure id="110d14d2-2708-4594-b3c8-7ceae75033ba" class="image"><a href="Conteudo_do_curso/Untitled_4.png"><img style="width:679px" src="Conteudo_do_curso/Untitled_4.png"/></a></figure></li></ol><ol type="a" id="05a571df-edf1-4cce-a1c3-f2adeaaa7efa" class="numbered-list" start="2"><li>Caso o IP da máquina esteja sendo atribuído pelo DHCP do roteador, então é necessário configurar o IP do servidor DNS no pool DHCP.</li></ol></li></ol></details></li></ul><ul id="a1d56595-cb06-4e30-86f5-33c1f429ed79" class="toggle"><li><details open=""><summary>Executar no <strong>Roteador 1841</strong></summary><ul id="3f3457b1-dc86-458b-877c-c13f8eaadb23" class="toggle"><li><details open=""><summary>Configurar DNS no pool DHCP</summary><ol type="1" id="f9a7f82e-496e-4677-bba4-d4355aa66017" class="numbered-list" start="1"><li>Acessar o roteador através do terminal e configurar o IP do servidor DNS no pool DHCP<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="de0f4c14-820d-4188-9915-8346c88bee26" class="code"><code class="language-Bash">Router&gt;enable
+Router#configure terminal
+Router(config)#ip dhcp pool fabrica
+Router(dhcp-config)#dns-server 9.0.9.9</code></pre></li></ol><ol type="1" id="afe419dd-58a3-45b2-a17f-b43e23f54ba9" class="numbered-list" start="2"><li>Uma vez configurado o IP do servidor DNS no pool DHCP, basta recarregar nas máquinas a configuração DHCP que o ip do DNS Server será automaticamente atribuído conforme configurado no roteador.<figure id="88621ad6-88b2-4017-8208-e297d6fc523d" class="image"><a href="Conteudo_do_curso/Untitled_5.png"><img style="width:682px" src="Conteudo_do_curso/Untitled_5.png"/></a></figure></li></ol></details></li></ul></details></li></ul></div></details><h1 id="f0408d8a-e05c-459a-9e0f-2add1c3c8bb9" class="">Conceitos</h1><hr id="c13444b4-6a08-4db6-a635-7c5068ff4710"/><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Endereçamento IP</strong></summary><div class="indented"><ul id="af405b88-61eb-4c5b-8885-75027120adeb" class="bulleted-list"><li style="list-style-type:disc"><strong>Endereço IP (Internet Protocol)</strong><p id="87ab8be2-dc42-4b5b-8e1c-e8d68aee3946" class="">Endereço universalmente reconhecido fora do dispositivo que pode ser atribuído pela rede interna e externa</p><ul id="db8b8505-ba41-4540-8381-eec8e7b1b180" class="toggle"><li><details open=""><summary>IPV4</summary><ul id="ab20eb45-4fb8-4ef6-b4a9-1af9f0e3a76d" class="bulleted-list"><li style="list-style-type:disc">A versão 4 do endereçamento de IPs fornece <strong>32 bits</strong> de dados para possibilitar a atribuição de IPs dentro dos parâmetros dessa versão<strong>. </strong>Isso significa que para cada octeto, temos 256 possibilidades (0-255) de atribuição numérica, ou seja, para cada octeto são 8 bits que somado são 32 bits (8 vezes 4).<p id="9a926f13-cf01-4815-b01b-b637bc28a47a" class="">
+</p><p id="69cb212b-3849-4198-9f48-7f7430ba8578" class="">De <strong>000.000.000.000</strong> até <strong>255.255.255.255</strong> - São possíveis <mark class="highlight-red"><strong>4.228.250.625</strong></mark> de endereços de IP</p><p id="056b8cea-1949-4665-a15e-e04e070d62bf" class="">
+</p><ul id="dab192d0-0c0f-4c70-b338-80577e482ae5" class="toggle"><li><details open=""><summary>Classes de IPV4</summary><ul id="206e2cf6-49ce-4502-bd84-7f7764080c38" class="bulleted-list"><li style="list-style-type:disc">Classe A<p id="6c832e92-3654-4621-8d4a-056addae4b9e" class="">O primeiro octeto vai de <mark class="highlight-blue">1-126</mark> e a máscara de rede é <mark class="highlight-blue">255.0.0.0</mark></p><p id="8f5f9206-3096-443a-b9e5-3cc65f644ada" class="">Exemplo: <strong><mark class="highlight-blue">123.145.3.3</mark></strong></p><p id="4cf04bb0-b9f9-4941-8a38-31dab5a4b795" class="">Endereço de rede: <mark class="highlight-blue"><strong>123</strong></mark>.0.0.0</p><p id="7e2b711a-8148-4c5a-a390-321c4ce20a08" class="">Endereço de broadcast: 123.<strong><mark class="highlight-blue">255.255.255</mark></strong></p></li></ul><ul id="7febd82b-b7d8-4e46-bb2b-a655cc14b821" class="bulleted-list"><li style="list-style-type:disc"><strong>Classe B</strong><p id="1bd752e8-a06c-458d-83d7-7ff319537655" class="">O primeiro octeto vai de <mark class="highlight-blue">128-191</mark> e a máscara de rede é <mark class="highlight-blue">255.255.0.0</mark></p><p id="36c140f3-54e7-4b39-a35a-5839c0d173cb" class="">Exemplo: <strong><mark class="highlight-blue">135.145.3.3</mark></strong></p><p id="d94acb39-4a50-49a6-a88a-11e8bb6cb0ad" class="">Endereço de rede: <mark class="highlight-blue"><strong>135.145</strong></mark>.0.0</p><p id="8e27406c-31a6-4646-9c10-2c4ca5c8920a" class="">Endereço de broadcast: 135.154.<strong><mark class="highlight-blue">255.255</mark></strong></p></li></ul><ul id="c2efe1b3-7ac6-4b83-82e7-157a1d9c0c87" class="bulleted-list"><li style="list-style-type:disc"><strong>Classe C</strong><p id="df8a6871-d1ef-44cb-9e03-7a6e7923e625" class="">O primeiro octeto vai de <mark class="highlight-blue">192-223</mark> e a máscara de rede é <mark class="highlight-blue">255.255.255.0</mark></p><p id="722c930a-d23e-40d4-b879-fe222dc91910" class="">Exemplo: <strong><mark class="highlight-blue">193.168.3.3</mark></strong></p><p id="f90583a4-2c68-44e3-aa19-d257dbbe8940" class="">Endereço de rede: <strong><mark class="highlight-blue">193.168.3</mark></strong>.0</p><p id="5e12ec16-3ab2-4912-8553-5d8b8483897f" class="">Endereço de broadcast: 193.168.3<strong><mark class="highlight-blue">.255</mark></strong></p></li></ul><ul id="d1bf2ef4-4475-4ce0-a081-27b78329d446" class="bulleted-list"><li style="list-style-type:disc"><strong>Classe D</strong><p id="63b76347-04b6-4f14-8cbd-e47d8dd91a96" class="">O primeiro octeto vai de <mark class="highlight-blue">224-239</mark> </p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="c0d732cc-544c-4cd9-9d6f-677a6b264950"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Muito utilizada para multicast, encaminha mensagens para grupos específicos em uma rede.</div></figure></li></ul><ul id="2d8a773f-eef4-4ac8-b6cf-8ce3e30df031" class="bulleted-list"><li style="list-style-type:disc"><strong>Classe D</strong><p id="c2f6e325-694d-4455-aac5-2e11d241b698" class="">O primeiro octeto vai de <mark class="highlight-blue">240-255</mark></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="57a66738-78cf-40e3-b219-7d6c723125e5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Usadas para projetos de pesquisa e desenvolvimento em redes.</div></figure></li></ul></details></li></ul></li></ul></details></li></ul><ul id="71aa6cc5-49ad-497d-85fc-07a4976ec2ec" class="toggle"><li><details open=""><summary>IPV6</summary><ul id="18b9f464-d554-4a8f-8d23-a813e1d735ad" class="bulleted-list"><li style="list-style-type:disc">A versão 6 é uma evolução para a versão 4 que nos fornece a possibilidade de <strong>128 bits</strong>  de dados para possibilitar a atribuição de IPs dentro dos parâmetros dessa versão<strong>. </strong>Isso significa que para cada octeto, temos 65.536 possibilidades (0-65.535) de atribuição numérica, ou seja, para cada octeto são 16 bits que somado são 128 bits (16 vezes 8).<p id="d70192d9-9121-4877-b010-fae8275491de" class="">
+</p><p id="7742c4ad-3e6a-4096-ac51-006635bfdadb" class="">De <strong>0000.0000.0000.0000.0000.0000.0000.0000</strong> até <strong>65535.65535.65535.65535.65535.65535.65535.65535</strong> - São possíveis 3,40240830764391e38 de endereços de IP</p></li></ul></details></li></ul><ul id="b056c26e-daf6-4345-87d4-a86cebe27829" class="toggle"><li><details open=""><summary>IP público</summary><p id="12f5e10f-770d-4293-8ece-722599714bb3" class="">Identificação de dispositivos em uma rede externa</p></details></li></ul><ul id="838b8ad5-4a9b-43b0-9c01-cadefe56ad10" class="toggle"><li><details open=""><summary>IP privado</summary><p id="fd0cef1e-8416-4146-aff9-ce347c564154" class="">Identificação de dispositivos em uma rede interna</p><p id="14524561-754d-4b94-b1e3-737bade02211" class="">Classe A - <mark class="highlight-blue"><strong>10</strong></mark>.0.0.0</p><p id="ba59adb7-b95a-464d-a598-d321166f3dd7" class="">Classe B - <mark class="highlight-blue"><strong>172.16</strong></mark>.0.0 a <mark class="highlight-blue"><strong>172.31</strong></mark><strong>.</strong>0.0</p><p id="e132db6a-ca55-4c01-9238-990964975f2b" class="">Classe B - <mark class="highlight-blue"><strong>192.168</strong></mark>.0.0</p></details></li></ul><ul id="ccc87dd3-6b41-41b9-b9ce-a9323e9a4e08" class="toggle"><li><details open=""><summary>IP estático</summary><p id="9f5ccdfd-917f-40d5-95ce-ba2bdfedd76e" class="">Os endereços IP estáticos apresentam uma vantagem fundamental para operação de sistemas com servidores e dispositivos de acesso remoto: a manutenção de uma conexão permanente com qualidade e estabilidade. Dessa forma, quando desejamos hospedar um site em um servidor, por exemplo, é ideal adotarmos um endereço IP estático para que o serviço DNS não tenha problemas para realizar a conexão entre a URL e o servidor que armazena nosso site ou serviço. Podemos também usar endereços IP estáticos em impressoras para garantir estabilidade de conexão, facilidade de acesso e configuração.</p></details></li></ul><ul id="eef179a9-62ce-4931-a4b4-6534cc989342" class="toggle"><li><details open=""><summary><strong>IP dinâmico</strong></summary><p id="8d99fd88-6b8c-4f67-9d61-7e5135204342" class="">Os endereços IP dinâmicos são amplamente utilizados em redes para conexão de dispositivos de usuários, como notebooks, smartphones ou desktops. É muito comum conectarmos nossos smartphones em diferentes redes, não é mesmo!? Os endereços IP dinâmicos possibilitam que possamos nos mover entre diferentes redes sem qualquer demanda adicional de configuração, recebendo endereços IP automaticamente. Além disso, proporcionam uma grande economia de endereços IP, tornando o gerenciamento de endereços disponíveis em uma rede mais eficiente (evitando que endereços fiquem sem uso). Essa característica é essencial com a limitação dos endereços disponíveis no IPv4.</p></details></li></ul></li></ul><ul id="072616fe-7d84-4549-be9e-30a62584f347" class="bulleted-list"><li style="list-style-type:disc"><strong>Endereço MAC</strong><p id="bc4344c1-3f4b-480f-9e31-ca93a36fb456" class="">Uma espécie de endereço interno da placa de rede do dispositivo.</p></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Protocolos</strong></summary><div class="indented"><ul id="6c2ce6ce-9450-4d28-97ff-6c1922e16906" class="bulleted-list"><li style="list-style-type:disc"><strong>Protocolo ARP</strong><ul id="a8dbad75-3cb1-426f-9cf4-ac13daaf74d3" class="bulleted-list"><li style="list-style-type:circle">Permite identificar um endereço físico através de um endereço de IP</li></ul><ul id="d5294262-39b4-4179-9dd7-c81b8e11ff24" class="bulleted-list"><li style="list-style-type:circle">Este protocolo mantem uma relação entre o os endereços de IP e Mac das máquinas que estão envolvidas na comunicação</li></ul></li></ul><ul id="c006ceaa-44ef-4b93-8ba1-96f29f080e52" class="bulleted-list"><li style="list-style-type:disc"><strong>Protocolo ICMP</strong><p id="1ddc09ca-1f8b-4238-8b06-3fe1292cc201" class="">Protocolo que controla o envio das mensagens e recepção do outro dispositivo em uma rede</p></li></ul><ul id="9a12501e-f759-4cce-a3ff-1ba709c42288" class="bulleted-list"><li style="list-style-type:disc"><strong>DNS (Domain Name System)</strong><p id="e7b160fd-4948-4001-9876-f59d8a1a83b0" class="">É um protocolo que memoriza os IPs de tal forma que sejam facilmente identificáveis (Como se fosse uma lista de telefone)</p><ul id="d48be913-4633-4bb2-97fc-947eae2951b5" class="toggle"><li><details open=""><summary><strong>Analisar o funcionamento do DNS</strong></summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="839b031a-fa59-4373-9296-2cc8f2043799" class="code"><code class="language-PowerShell">## Descobre as propriedades da resolução do nome do site da Alura
+nslookup www.alura.com.br
+
+## Resultado
+Servidor:  UnKnown
+Address:  2804:14d:1:0:181:213:132:2
+
+Não é resposta autoritativa:
+Nome:    www.alura.com.br
+Addresses:  2606:4700:20::ac43:48e8
+          2606:4700:20::681a:483
+          2606:4700:20::681a:583
+          104.26.5.131
+          172.67.72.232
+          104.26.4.131</code></pre></details></li></ul><ul id="c266646b-a6f6-4d63-ba43-19c26b883c25" class="toggle"><li><details open=""><summary><strong>Configurar Um Servidor DNS</strong></summary><p id="945568bf-c28f-4820-90d9-de2b34458d2e" class="">Um servidor DNS é feito única e exclusivamente para a tradução de domínios para endereços de IP. Desse modo, sua função não é hospedar sites ou aplicações, mas sim permitir que as requisições cheguem aos locais corretos.</p><p id="0dbee098-a4e1-42d1-a977-88e3dc9e41e9" class="">
+</p><ul id="dfdc5660-adc4-4108-ac58-46f8caf87993" class="bulleted-list"><li style="list-style-type:disc"><strong>Exemplo</strong></li></ul></details></li></ul></li></ul><ul id="b254240d-4733-4c15-9aad-fcf6a9e2f6d4" class="bulleted-list"><li style="list-style-type:disc"><strong>TCP</strong><p id="6e62b67c-fc0c-4086-bc9e-86e1b8ad431e" class="">O protocolo TCP encontra-se acima da camada onde o IP está localizado e ele é responsável por realizar o transporte das informações. Além disso, a camada de transporte possui também outro protocolo bastante conhecido, o UDP.</p></li></ul><ul id="159ffb5f-497a-42dd-95d7-d61ca6909d53" class="bulleted-list"><li style="list-style-type:disc"><strong>DHCP (Dynamic Host Configuration Protocol)</strong><p id="7d7af215-a7f5-4ad9-9e82-035243199956" class="">Este protocolo atribui automaticamente um IP para um dispositivo que se conecte a rede para evitar que cada IP seja atribuído manualmente, o que pode ser um problema caso haja muitos dispositivos em uma rede.</p><p id="26745ed5-70fb-4e0b-868f-705446235fe7" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2a7625a9-8eb1-4023-87e5-81abbd8c676c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Quando um endereço IP é atribuído a uma máquina, dizemos que a configuração foi dinamicamente alocada. Os servidores DHCP normalmente possuem o que chamamos de “lease time”, ou seja, possui um tempo de alocação de um endereço IP a uma máquina, quando esse tempo é expirado é preciso ocorrer uma renovação de endereço IP. Por isso ele é dinamicamente alocado.</div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="da99a0d1-b93f-4174-8292-98664a48b888"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Quando um dispositivo não possui endereço IP ele não sabe a quem perguntar, então ele precisa verificar entre dispositivos da mesma rede quem poderá fornecer um endereço IP. Quando essa comunicação é feita para todos, chamamos isso de Broadcast.</div></figure><p id="4ec9e1b6-93f9-42ad-b206-419d455c0d04" class="">
+</p><ul id="d2a82970-9635-40a1-8e5e-92e329a560b2" class="toggle"><li><details open=""><summary>Configurando o DHCP em uma rede</summary><p id="c6b0eeee-b272-44dd-b6ed-449cdeff37c2" class="">Em uma rede onde 6 computadores estão conectados a um switch que por sua vez se conecta a um roteador, deve ser acessado o roteador através de um PC comum conectado por uma cabo console ao roteador.</p><p id="89e9c6bb-6fd3-46b0-b3d9-5a52562aab39" class="">
+</p><p id="442d7718-708f-448e-8bc6-6d4b408aa3c5" class="">Uma vez conectado ao roteador, a configuração será feita pelo terminal da seguinte maneira:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="82d8bdb8-bf23-46f3-a70a-5c4dc9d2f57c" class="code"><code class="language-Bash">## Acessando o roteador pelo terminal, é necessário escalar o acesso ao roteador através do seguinte comando para entrar no modo de configuração
+Router$ enable
+
+## Uma vez habilitado, escolhemos a opção de configurar via terminal
+Router$ configure
+Configuring from terminal, memory, or network [terminal]? terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+
+## Cria um pool de DHCP chamado &quot;fabrica&quot;.
+## Ao criar esse pool, o terminal etrará no modo de configuração DHCP
+Router(config)$ ip dhcp pool fabrica
+
+## Configurar a rede
+Router(dhcp-config)$ network 193.168.3.1 255.255.255.0
+
+## Configurar o Default Gateway do roteamento
+Router(dhcp-config)$ default-router 193.168.3.1
+
+## Sair da configuração de DHCP
+Router(dhcp-config)$ exit
+
+## Atribuir o IP da porta onde o switch está conectado ao roteador (FastEthernet0/0)
+Router(config)$ interface FastEthernet0/0
+Router(config-if)$ no shutdown
+Router(config-if)$ ip address 193.168.3.1 255.255.255.0</code></pre><p id="d7248bfd-8f58-4e41-8fdf-74f55bacaeb1" class="">Agora é possível configurar o ip de cada máquina apenas selecionando a opção de DHCP</p></details></li></ul></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Máscara de sub-rede</strong></summary><div class="indented"><p id="7da02df7-68a6-4059-bc4c-1b0d320eab60" class="">Todo e qualquer endereço de IP possui uma máscara correspondente. Nessa máscara é informado qual parte do IP faz parte da rede e qual faz parte do host.</p><p id="4b8321d1-8eb0-4b32-8ded-aba0d8d5dad2" class="">Quer um exemplo? Um endereço IP, digamos de número 192.168.0.50, que possui uma máscara de número 255.255.255.0, possui como seu endereço de rede o número 192.168.0 e o seu host como 50.</p><p id="79744c6f-9345-45d2-a6ac-9d4111753346" class="">Para que essa rede possa ser dividida, é necessário dividir o número da máscara. Desta forma, você pode utilizar valores diferentes que estejam dentro de 0 até 255.</p><p id="61dd2fc6-39e6-41ac-917b-10cc7bae9257" class="">Essa tarefa, após completa, recebe o nome de sub-rede.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Default Gateway</strong></summary><div class="indented"><ul id="2e97d067-cf62-495c-a4d0-dfb9c4487275" class="bulleted-list"><li style="list-style-type:disc">O default gateway é o endereço IP responsável por encaminhar pacotes para redes externas. Em um roteador, por exemplo, o Gateway padrão será o IP da porta do roteador em em que um computador está conectado e é a partir dessa porta que os pacotes serão encaminhados quando enviados para redes externas.</li></ul></div></details><h1 id="d8b1e706-e4d9-4c1c-91c0-2a4d8514ad44" class="">Equipamento</h1><hr id="ef9eb1ae-cda5-47b2-a2fb-b2fcb4f65251"/><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Hub</summary><div class="indented"><ul id="6b7ea222-2d61-4913-bfb2-8357bc91ab00" class="bulleted-list"><li style="list-style-type:disc">É um dispositivo de rede que atua no encaminhamento de mensagens entre dispositivos computacionais que estão conectados em suas portas.<ul id="e7a866dd-5a8c-4438-9a78-b4865db2e585" class="bulleted-list"><li style="list-style-type:circle">Pros<ol type="1" id="80b45890-c8aa-43c5-bf32-e6484ff45365" class="numbered-list" start="1"><li>Simples e de baixo custo</li></ol></li></ul><ul id="0d3130bb-adce-4033-af99-65d8d04551b7" class="bulleted-list"><li style="list-style-type:circle">Contras<ol type="1" id="850ef5d8-cbe5-451c-9dd4-df857301f139" class="numbered-list" start="1"><li>Menor privacidade pois uma mensagem enviada de um dispositivo específico conectado a ele para outro, será também enviada para todos os outros dispositivos na rede e isso pode ser uma questão importante com a segurança dos dados trafegados.</li></ol><ol type="1" id="52df279d-3467-4246-a18f-8448d6da4921" class="numbered-list" start="2"><li>Gasta mais tempo para se conectar ao dispositivo de origem pois antes do pacote sair do dispositivo de destino até o de origem, o Hub pode ter gasto tempo de conexão com outros dispositivos que não estavam diretamente envolvidos na comunicação e que mesmo assim receberá os pacotes, o que aumenta a possibilidade de haver um congestionamento dos pacotes.</li></ol></li></ul></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Switch</strong></summary><div class="indented"><p id="f3afbab1-470b-4573-babe-47937349d41b" class="">Conecta dispositivos em uma rede de maneira que o pacote enviado de um dispositivo para o outro seja enviado apenas para os dispositivos envolvidos nessa comunicação, ou seja, diferentemente do Hub, o switch é capaz de identificar os dispositivos sabendo a origem do pacote e o destino. Assim o switch pode identificar exatamente o dispositivo de destino sem ter que enviar para todos os outros dispositivos na rede.</p><p id="aa6e24da-1379-4464-af1f-b9926d7f0ac4" class="">
+</p><p id="d42d6840-0ab7-44ad-8a48-4f606e28799c" class="">A maneira como o switch é capaz de identificar apenas os dispositivos envolvidos em uma comunicação (Origem/Destino) se dá pelos seguintes passos:</p><ol type="1" id="6e5558c2-83b9-4789-9f63-73b94ba8c2e3" class="numbered-list" start="1"><li>O switch recebe um pacote de dados do dispositivo de origem e encaminha para todos os outros dispositivos da rede <strong>(Utilizando o protocolo ARP para descobrir o endereço de todos na rede através do endereço MAC)</strong>.</li></ol><ol type="1" id="183f1f45-4249-40da-a58b-772434081f55" class="numbered-list" start="2"><li>Dentre todos os dispositivos que receberam o pacote, o dispositivo de destino se identifica para o switch (mantido em uma memória interna) e a partir desse momento, todos os pacotes enviados do dispositivo de origem serão encaminhados apenas para o dispositivo de destino e não mais para os demais dispositivos da rede.<p id="437d020a-4102-4d65-88b5-60fd9e2b1955" class="">
+</p><p id="509232c2-bea1-434b-961a-1df393831c94" class="">Prós<div class="indented"><ol type="1" id="e4b0f503-5bd7-43ec-a326-c740d7c25331" class="numbered-list" start="1"><li>Mais seguro já que os pacotes enviados de um dispositivo para o outro ficaram limitados a essa conexão sem compartilhar os dados com os demais na rede</li></ol></div></p><p id="cdbcabfc-3a52-47f1-a708-430d644e154b" class="">Contras<div class="indented"><ol type="1" id="c94cfb33-4b1a-46e8-a438-e258440731bc" class="numbered-list" start="1"><li>É possível eliminar a segurança do switch ao lotar a memória de endereços MACs em todas as portas. Isso fará com que o switch não tenha memória disponível para lembrar dos dispositivos de destino/origem e isso fará com que o switch passe a se comportar como um Hub, ou seja, enviar os dados para todos na rede e assim prejudicar a segurança.<ol type="a" id="a57a6ca7-54d7-42da-874b-1d1a8151e2d2" class="numbered-list" start="1"><li>Ainda que seja possível atacar um switch, é recomendável configurar a opção de segurança na porta, para que fique limitada a receber uma quantidade máxima de endereços MAC.</li></ol></li></ol></div></p></li></ol></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Roteador</strong></summary><div class="indented"><p id="e4edecc3-430a-4c85-9098-e5f802dd31a7" class="">A principal função dos roteadores é interconectar redes, encaminhando seus pacotes de dados.</p><p id="9c0c87d9-e05c-486a-8000-be3c8782d305" class="">Para configurar um roteador é necessário o Uso de um PC conectado a ele através de uma cabo console em que em uma ponta é ligado no PC através do conector de um cabo de rede normal e no roteador se conecta através da outra ponta que é uma entrada serial.</p><p id="f090f951-dfa0-437c-9766-b94133616e2a" class="">Para ter acesso ao roteador pelo PC conectado, é utilizado o Putty que fornecerá uma maneira de acessar o terminar do roteador pelo PC</p><p id="c4222f8e-ce35-4ab8-913d-c4bf1f51d8ec" class="">Configurando um roteador através do terminal do PC conectado via <strong>cabo console</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13ea58b9-8247-487f-8e6d-aa85a30a37c6" class="code"><code class="language-Bash">## Acessando o roteador pelo terminal, é necessário escalar o acesso ao roteador através do seguinte comando para entrar no modo de configuração
+Router$ enable
+
+## Uma vez habilitado, escolhemos a opção de configurar via terminal
+Router$ configure
+Configuring from terminal, memory, or network [terminal]? terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+
+## Configurando as portas de Ethernet do roteador 
+## Configurando a porta FastEthernet &quot;0/0&quot;
+Router(config)$ interface FastEthernet 0/0
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+## Configurar o endereço de IP para a porta FastEthernet &quot;0/0&quot;
+Router(config-if)$ ip address 192.168.1.1 255.255.255.0
+
+## Indica para a configuração que a porta &quot;0/0&quot; não deve ser derrubada
+Router(config-if)$ no shutdown
+
+## Sai do modo de configuração da porta &quot;FastEthernet 0/0&quot; para ser possível a configuração das demais
+Router(config-if)$ exit
+
+## Configurando a porta FastEthernet &quot;0/1&quot;
+Router(config)$ interface FastEthernet 0/1
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+## Configurar o endereço de IP para a porta FastEthernet &quot;0/1&quot;
+Router(config-if)$ ip address 192.168.2.1 255.255.255.0
+
+## Indica para a configuração que a porta FastEthernet &quot;0/1&quot; não deve ser derrubada
+Router(config-if)$ no shutdown
+
+## Sai do modo de configuração da porta &quot;FastEthernet 0/1&quot; para ser possível a configuração das demais
+Router(config-if)$ exit
+
+
+## Configurando a porta Ethernet &quot;0/1/0&quot;
+Router(config)$ interface Ethernet 0/1/0
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+## Configurar o endereço de IP para a porta Ethernet &quot;0/1/0&quot;
+Router(config-if)$ ip address 192.168.3.1 255.255.255.0
+
+## Indica para a configuração que a porta Ethernet &quot;0/1/0&quot; não deve ser derrubada
+Router(config-if)$ no shutdown
+
+## Sai do modo de configuração da porta &quot;Ethernet 0/1/0&quot;
+Router(config-if)$ exit
+
+## Para verificar o IP atribuído para cada interface, basta navegar até o nível &quot;Router&quot; e executar o seguinte comando
+Router(config)$ exit
+Router$ show ip interface fastethernet 0/0
+FastEthernet0/0 is up, line protocol is up (connected)
+  Internet address is 192.168.1.1/24
+  Broadcast address is 255.255.255.255
+  Address determined by setup command
+  MTU is 1500 bytes
+  Helper address is not set
+  Directed broadcast forwarding is disabled
+  Outgoing access list is not set
+  Inbound  access list is not set
+  Proxy ARP is enabled
+  Security level is default
+  Split horizon is enabled
+  ICMP redirects are always sent
+  ICMP unreachables are always sent
+  ICMP mask replies are never sent
+  IP fast switching is disabled
+  IP fast switching on the same interface is disabled
+  IP Flow switching is disabled
+  IP Fast switching turbo vector
+  IP multicast fast switching is disabled
+  IP multicast distributed fast switching is disabled
+  Router Discovery is disabled
+  IP output packet accounting is disabled
+  IP access violation accounting is disabled
+  TCP/IP header compression is disabled
+  RTP/IP header compression is disabled
+  Probe proxy name replies are disabled
+  Policy routing is disabled
+  Network address translation is disabled
+  BGP Policy Mapping is disabled
+  Input features: MCI Check
+  WCCP Redirect outbound is disabled
+  WCCP Redirect inbound is disabled
+  WCCP Redirect exclude is disabled</code></pre><p id="353694f1-525c-46c7-8b3d-d98309a79af7" class="">
+</p><p id="4ef2e596-60f4-4072-90e2-16a2f4d5e556" class="">Uma vez configurado as redes no roteador, basta atribuir os IPs para os computadores em cada uma das redes criadas e configurar o Default Gateway nas configurações de IP da máquina. O Default Gateway nas máquinas são o IP da porta configurada no roteador.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><a href="Treinamentos%20e%20Cursos%20014c855bd06c46a7b6cdfb712d6f7307/Escolas%20DB%20f23bc75fc90447dc95075dd240f72bf1/Alura%2044250c0c43574cc6906cb8a358769376.html"><strong>Cabos</strong></a></summary><div class="indented"><ul id="a6d0a357-46e3-4385-a2c5-9de1caff194c" class="bulleted-list"><li style="list-style-type:disc"><strong>Cabo console</strong><p id="ece94599-6569-4a3a-87b5-a90110a35cce" class="">Cabo que permite acessar um dispositivo de rede por meio de um PC para que o PC possa manipular o dispo</p></li></ul><ul id="737fd31e-c265-4235-a7b0-e56cc7e45bd3" class="bulleted-list"><li style="list-style-type:disc"><strong>Cabo direto</strong><p id="81fdfeed-1b32-4495-91e3-aa69155cd108" class="">Conecta um dispositivo a um equipamento de rede</p></li></ul><ul id="6448f57f-dd3b-4026-a8fc-7aac13965ddc" class="bulleted-list"><li style="list-style-type:disc"><strong>Cabo Cruzado (Crossover)</strong><p id="4271ed69-6150-4357-ab7b-a31f1de87f48" class="">Conecta dois dispositivos diretamente, sem usar um dispositivo de rede como o hub para intermediar a comunicação</p></li></ul></div></details><p id="7afd0a8a-bc48-4fbb-a4c1-a2a6f11519d7" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
