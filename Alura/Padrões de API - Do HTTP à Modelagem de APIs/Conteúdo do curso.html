@@ -1,0 +1,688 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Conteúdo do curso Padrões de API: do HTTP à modelagem de APIs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3e049bbc-c127-40a2-baca-56d9a9ed0e55" class="page sans"><header><h1 class="page-title">Conteúdo do curso Padrões de API: do HTTP à modelagem de APIs</h1><p class="page-description"></p></header><div class="page-body"><p id="8dde60fa-bae0-4d16-82dd-84f5775c60d2" class="">
+</p><nav id="993e5991-8ed1-4cdb-a474-1c89f6628ccf" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c10e740e-4d0f-4c0c-a121-3d47e19202da"><strong>Ferramentas</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#88f7bb46-2d49-4917-95de-347f75a7ff2d"><strong>Client Web que permitam manipular uma requisição HTTP</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#863e2081-402d-41ad-9433-83d5ae54919f"><strong>O que são APIs</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0c31f1c3-161d-4d89-b19f-cf10c0e1a097"><strong>APIS Comuns</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#32096e5d-6771-47c3-8dac-70aab1ad62e5"><strong>CORS (</strong><mark class="highlight-gray_background"><strong>Cross-origin Resource Sharing</strong></mark><strong>)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#84822d74-8679-49e8-80ad-3a91c71f7d62">Conceitos</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2ffbba69-48ea-4054-b14a-e1f978abd1d4"><strong>Métodos / Verbos HTTP (</strong><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC 7231</a></strong></mark><strong> e </strong><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc5789">RFC 5789</a></strong></mark><strong>)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#20104236-d6dd-4369-91b3-9d2a4c030195"><mark class="highlight-teal_background"><strong>GET</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ab44e270-e429-410a-aa46-6dbfc56e70f2"><mark class="highlight-teal_background"><strong>HEAD</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.2">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b5d0689f-2aac-4e8b-ae2e-f1a8efbd61af"><mark class="highlight-yellow_background"><strong>POST</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.3">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#374a8399-807f-4aea-a7d2-eb1b6d75b6db"><mark class="highlight-blue_background"><strong>PUT</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#962d9234-8cb6-4a77-a3ae-49ee4c38394d"><mark class="highlight-purple_background"><strong>PATCH</strong></mark><strong> </strong>(<mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc5789">RFC 5789</a></strong></mark>)</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fffc1f8d-3c23-8041-be32-dcf42274ac2d"><mark class="highlight-red_background"><strong>DELETE</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.5">RFC 7231</a></mark><mark class="highlight-default_background">)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4f645be8-8529-4aa6-ba8f-0c405640902e"><mark class="highlight-pink_background"><strong>Options</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.7">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a82be50c-c2fa-49da-85ba-6077916d53e1">Panorama geral dos métodos/verbos HTTP</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#63ca734f-35e5-41f7-b661-8a5dc0ae1264"><strong>Modelagem</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e235eaf4-83cf-4b7a-bfdd-8fe4e9f7ebdf"><strong>Parâmetros de Query</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#39f0a035-d1e6-4cf5-8bb0-08b92720f79b"><strong>HATEOAS</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a118a563-df3c-4f03-b2f0-a9666b28ac7a"><strong>HAL</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#409407d9-ee32-4352-a2d6-ad310b4e147c"><strong>Versionamento</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f17319d2-1ab3-4fd2-93af-098982906131"><strong>Tempo Real</strong></a></div></nav><h1 id="c10e740e-4d0f-4c0c-a121-3d47e19202da" class=""><strong>Ferramentas</strong></h1><hr id="c8d33842-eeb7-447d-a722-5fabc90f100e"/><h2 id="88f7bb46-2d49-4917-95de-347f75a7ff2d" class=""><strong>Client Web que permitam manipular uma requisição HTTP</strong></h2><ul id="54d275e4-4124-4d29-8162-bd383ee72966" class="bulleted-list"><li style="list-style-type:disc"><strong>Postman</strong></li></ul><ul id="59088946-b584-42ae-ad9c-ccbd1cbd5127" class="bulleted-list"><li style="list-style-type:disc"><strong>Insomnia</strong></li></ul><ul id="620c03c5-7e4d-4db1-bd1e-355e248f8838" class="bulleted-list"><li style="list-style-type:disc"><strong>CURL</strong></li></ul><ul id="2a7a6bea-2a7f-4053-84fc-fbba79d268f0" class="bulleted-list"><li style="list-style-type:disc"><strong>Mock API IO</strong><p id="10d21f3c-1fe7-466d-a117-bb5db71c3ca3" class="">Permite criar APIs falsas para testes simulados sem ter a necessidade de expor uma API de teste em um servidor eliminando a necessidade de criar um novo projeto, publicar em um servidor de aplicação web e etc.</p><figure id="9e6158c9-e68b-4246-9556-03e434fe0ee4"><a href="https://mockapi.io/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">mockAPI</div><div class="bookmark-description">MockAPI is a simple tool that lets you easily mock up APIs, generate custom data, and perform operations on it using RESTful interface. MockAPI is meant to be used as a prototyping/testing/learning tool.</div></div><div class="bookmark-href"><img src="https://mockapi.io/favicon.ico" class="icon bookmark-icon"/>https://mockapi.io/</div></div></a></figure></li></ul><h1 id="863e2081-402d-41ad-9433-83d5ae54919f" class=""><strong>O que são APIs</strong></h1><hr id="f2ee29b3-377f-4fb6-b8df-b9ea0ea244b9"/><p id="3dd2475c-bcc8-4ccb-b004-095963223cb4" class="">API vem do inglês e significa “Interface Programming Interfaces” e na prática é um conjunto de funções e características de um programa que permite a integração de outro programa que não tem o intuito de participar dos detalhes de implementação interna.</p><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><strong>APIS Comuns</strong></summary><div class="indented"><ul id="7d991598-a83d-46eb-83a6-ddc4bfd8ad44" class="bulleted-list"><li style="list-style-type:disc"><strong>APIs Web</strong><p id="e73fdf1a-3d85-44f0-a685-b8a7c9df2ed3" class=""><mark class="highlight-gray_background"><strong>Exemplo</strong></mark><mark class="highlight-gray_background">: </mark>A API do google que fornece um endereções a partir de uma latitude e longitude.</p><ul id="41ea5bb0-b595-47ff-b230-a2a51906b950" class="toggle"><li><details open=""><summary><strong>Padrões</strong></summary><ul id="24180ccb-499c-44e1-ab68-0268c3347e6c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red_background"><strong>RPC</strong></mark><ul id="d4f53f4c-0971-41c4-a435-43f4183d5f2a" class="bulleted-list"><li style="list-style-type:circle">Remote Procedure Call - Informava na URL o nome do recurso que se pretende executar no servidor.</li></ul></li></ul><ul id="53f49fda-6320-4c0f-9fc8-9c146b5cf160" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background"><strong>SOAP</strong></mark><ul id="36778502-da32-48c8-a451-50a1a3654b80" class="bulleted-list"><li style="list-style-type:circle">Protocolo para trabalhar com o padrão <mark class="highlight-gray_background">RPC</mark> baseado em XML.</li></ul></li></ul><ul id="ed5089f7-c5b8-4818-811a-18f3dd4b0637" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal_background"><strong>RESTful</strong></mark><ul id="4960e9be-9067-4b70-a2f7-65aaad0340da" class="bulleted-list"><li style="list-style-type:circle">Utiliza o protocolo <mark class="highlight-gray_background">HTTP </mark>e seus verbos para chamar procedimentos remotamente em um servidor.</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="c04ef594-8f75-4777-966f-e2a89521e042"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="2740819a-c2ff-48bb-a029-18bb6f867d92" class="">O padrão surgiu com uma tese de doutorado e pode ser consultada e lida em <a href="https://ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf">https://ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf</a> (Arquitetura de Software baseado em redes)</p></div></figure></li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Outras Possibilidades</summary><div class="indented"><figure id="fc934977-3dad-4248-a719-8a26e30567f6"><a href="https://graphql.org/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">GraphQL | A query language for your API</div><div class="bookmark-description">GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</div></div><div class="bookmark-href"><img src="https://graphql.org/favicon.ico" class="icon bookmark-icon"/>https://graphql.org/</div></div><img src="https://graphql.org/img/og-image.png" class="bookmark-image"/></a></figure><ul id="9dc88d3d-2709-4c54-8199-6840abb1d7b5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal_background"><strong>Vantagem</strong></mark><ul id="02ead6a9-4b71-4bce-bd03-65bec1c59b08" class="bulleted-list"><li style="list-style-type:circle">Usado para criar APIs de acesso mais mais flexível aos dados expostos por ela já que ele funciona <mark class="highlight-red"><strong>quase</strong></mark> como uma query.</li></ul></li></ul><ul id="bb249ac7-7f74-43f9-b347-85b40f155167" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red_background"><strong>Desvantagem</strong></mark><ul id="62479fc6-0df4-4779-b37e-2b2e9a91a23e" class="bulleted-list"><li style="list-style-type:circle">Complexo.</li></ul><ul id="7b9d7750-488a-4058-b6eb-91375182f8b4" class="bulleted-list"><li style="list-style-type:circle">Transfere a responsabilidade do uso para o usuário ou cliente (exigindo que eles tenham o conhecimento básico sobre este padrão).</li></ul></li></ul><figure id="5b79290d-8b95-4418-ba51-b4d473de2a88"><a href="https://grpc.io/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">gRPC</div><div class="bookmark-description">A high-performance, open source universal RPC framework</div></div><div class="bookmark-href"><img src="https://grpc.io/favicons/android-chrome-512x512.png" class="icon bookmark-icon"/>https://grpc.io/</div></div><img src="https://grpc.io/img/logos/grpc-icon-color.png" class="bookmark-image"/></a></figure><ul id="3cc6d4d0-fcfc-451c-9743-1ead040015de" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal_background"><strong>Vantagem</strong></mark><ul id="fffc1f8d-3c23-80f2-af48-e99547a0e8d5" class="bulleted-list"><li style="list-style-type:circle">Criar APIs com um foco maior em performance por conto de estratégias de compressão(por padrão) e baixa latência.</li></ul></li></ul><ul id="2f72047d-fce0-4fc3-be87-f2d9fea8162e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red_background"><strong>Desvantagem</strong></mark><ul id="fffc1f8d-3c23-8060-a257-dd92adb04865" class="bulleted-list"><li style="list-style-type:circle">Complexo de Implementar.</li></ul></li></ul></div></details></details></li></ul></li></ul><ul id="1e15d59c-61cf-4415-bfbf-421df8e47b76" class="bulleted-list"><li style="list-style-type:disc"><strong>APIs de código fonte</strong><p id="364ffd5e-37c3-4cda-9326-aa967686bce5" class=""><mark class="highlight-gray_background"><strong>Exemplo:</strong></mark> A API que fornece acesso à logica de tratamento de datas no java.</p></li></ul></div></details><h2 id="32096e5d-6771-47c3-8dac-70aab1ad62e5" class=""><strong>CORS (</strong><mark class="highlight-gray_background"><strong>Cross-origin Resource Sharing</strong></mark><strong>)</strong></h2><hr id="944b7113-9fa4-4a89-a3e1-535a88bb92d8"/><p id="e19b34a7-c6a1-4c21-a681-96bf6e49ce8e" class="">Ocorre quando uma aplicação que está em outro domínio tenta ser acessada de alguma maneira não permitida pela política de segurança <strong>CORS</strong> no Backend. Para impedir que problemas como esses ocorram, é necessário que seja adicionado o cabeçalho permitindo a ação da requisição no backend no back-end para permitir que o domínio não sofra com a política de <strong>CORS</strong>.</p><p id="b4fb8a30-a675-48f4-9c5e-6e8953c75525" class="">
+</p><p id="e484372d-2671-4a9f-af54-05f2e79e818b" class="">Essa política é aplicada apenas pelo navegador e não é algo ligado ao protocolo <strong>HTTP</strong>, então não se espera que isso aconteça com outros HTTP Clients que não sejam navegadores web.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e1cbadf2-a6b0-4f19-b844-05f405d700fa"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="91be1431-8b93-47b3-a748-0a7028af76f5" class=""><strong>Preflight</strong> - Pre validação que uma requisição pode passar pela política de <strong>CORS</strong> pois não foi implementado a autorização para tomar alguma ação ou configuração da request.</p></div></figure><h1 id="84822d74-8679-49e8-80ad-3a91c71f7d62" class="">Conceitos</h1><hr id="710a2386-e28d-498f-a45c-a080a82ca2d7"/><h2 id="2ffbba69-48ea-4054-b14a-e1f978abd1d4" class=""><strong>Métodos / Verbos HTTP (</strong><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC 7231</a></strong></mark><strong> e </strong><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc5789">RFC 5789</a></strong></mark><strong>)</strong></h2><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-teal_background"><strong>GET</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></summary><div class="indented"><p id="62e2df70-2b15-4bbb-9d6e-bbd8c24d20aa" class="">Obtém um único recurso ou um grupo deles ao servidor</p><p id="fffc1f8d-3c23-807e-830e-e3ec29c9feb0" class=""><strong>Propriedades Comuns:</strong><div class="indented"><ul id="da488c34-7ef6-46d9-a907-23bf0902e717" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Requisição necessita de um body.</strong></li></ul><ul id="71f02404-c328-4569-87b5-593ce5a26c39" class="bulleted-list"><li style="list-style-type:disc"><strong>✅ Resposta com body.</strong></li></ul><ul id="fffc1f8d-3c23-80aa-b034-eb9efab19679" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Safe Method</strong> - Pois o a consulta por si só não altera o estado do recurso no servidor.</li></ul><ul id="8522c35c-5c62-47ef-acbc-d8b55bf4e014" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Idempotente</strong> - Pois a múltiplas consultas ao recurso se manterá a mesma independente de quantas requisições repetidas sejam enviadas.</li></ul><ul id="391f19ff-65ad-40c5-841d-832a917000a6" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Cacheable Method.</strong></li></ul></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-teal_background"><strong>HEAD</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.2">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></summary><div class="indented"><p id="244158c3-5b11-435d-85f3-2103e2e8447a" class="">Consulta no servidor informações de metadados a respeito do endpoint.</p><p id="4e753cb0-a66b-4bbe-932d-3ceaa739dcde" class=""><strong>Propriedades Comuns:</strong><div class="indented"><ul id="c32566f4-2a29-4bf2-9821-2a93a7266139" class="bulleted-list"><li style="list-style-type:disc">❌<strong> Requisição necessita de um body.</strong></li></ul><ul id="d2001c22-843f-46ba-91d9-131375d67f0e" class="bulleted-list"><li style="list-style-type:disc"><strong>❌ Resposta com body.</strong></li></ul><ul id="8384f11c-d22a-4392-a67e-0d8368bbabea" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Safe Method</strong> - Pois o a consulta por si só não altera o estado do recurso no servidor.</li></ul><ul id="fc4e171c-32e1-4f61-a036-8c9e3f9ed009" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Idempotente</strong> - Pois a múltiplas consultas ao recurso se manterá a mesma independente de quantas requisições repetidas sejam enviadas.</li></ul><ul id="24f26837-116b-4c60-923a-c7c9cfd3bd64" class="bulleted-list"><li style="list-style-type:disc">✅ Cacheable Method.</li></ul></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-yellow_background"><strong>POST</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.3">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></summary><div class="indented"><p id="f79217ba-75ae-4abb-8a01-e2a4f44510e3" class="">Cria um novo recurso no servidor</p><p id="1e348f22-1958-4d07-9dce-7ac7d730edc5" class=""><strong>Propriedades Comuns:</strong><div class="indented"><ul id="ef415b56-d3fe-4ccc-9990-04247429d30b" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Requisição necessita de um body.</strong></li></ul><ul id="f446cc56-1240-44d4-983c-c498144af674" class="bulleted-list"><li style="list-style-type:disc"><strong>✅ Resposta com body.</strong></li></ul><ul id="fffc1f8d-3c23-80b8-b93f-e677d061485c" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Safe Method</strong> - Pois este método tem justamente a função de alterar recursos ou estados no servidor.</li></ul><ul id="6fb7e44e-c92f-4ea3-a989-5d2e4a78b422" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Idempotente</strong> - Pois múltiplas requests deste verbo podem multiplicar o mesmo recurso no servidor (por exemplo, adicionar o mesmo curso múltiplas vezes).</li></ul><ul id="fffc1f8d-3c23-8085-a336-e63041c9cef7" class="bulleted-list"><li style="list-style-type:disc"><strong>⚠️ Cacheable Method</strong> - Cacheável somente se a resposta tiver definido explicitamente informações de quão recente é a informação (<em><a href="https://datatracker.ietf.org/doc/html/rfc9111#name-freshness">freshness</a></em>) <strong>e</strong> um cabeçalho <em>Content-Location</em> for definido para o mesmo valor da URL acessada.<p id="83ac8477-7587-48e3-a033-5228695e23f4" class="">Informações de <em>freshness</em> podem ser fornecidas através de cabeçalhos como <em>Expires</em> ou <em>Cache-Control: max-age</em>.</p></li></ul></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-blue_background"><strong>PUT</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></summary><div class="indented"><p id="12c86f74-a5b0-4ce0-abd1-02fb99953f86" class="">Atualiza de uma só vez todo um dado recurso no servidor.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="8015e860-5fa3-4b40-82e6-14b5c396e2c6"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">O certo segundo a a especificação é atualizar um recurso já existente conforme informado no corpo da requisição mas caso o ID informado não existir então deve-se criar o recurso como fosse no método <mark class="highlight-yellow_background">POST</mark>.</div></figure><p id="fffc1f8d-3c23-80c1-809c-fcaaeab7ecfa" class=""><strong>Propriedades Comuns:</strong><div class="indented"><ul id="aa8e7071-820d-49db-83a5-edef8e6b33cc" class="bulleted-list"><li style="list-style-type:disc">✅<strong> Requisição necessita de um body.</strong></li></ul><ul id="fffc1f8d-3c23-807f-85ed-ccf8e9b1991a" class="bulleted-list"><li style="list-style-type:disc"><strong>✅ Resposta com body.</strong></li></ul><ul id="6595ed07-15bc-462d-8477-00028621a39c" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Safe Method</strong> - Pois os recursos enviados serão alterados múltiplas vezes no servidor mesmo que a alteração seja sempre para os mesmos dados.</li></ul><ul id="1d24e525-dd4c-4e75-8a55-614308d9c498" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Idempotente</strong> - Pois múltiplas requests deste verbo afetaram o recurso com o processamento da alteração mas não deve fazer diferença para o estado do recurso no servidor já que os dados permanecem o mesmo.</li></ul><ul id="91c14364-802e-4c13-92f9-8701f5908cb8" class="bulleted-list"><li style="list-style-type:disc"><strong>❌ Cacheable Method.</strong></li></ul></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-purple_background"><strong>PATCH</strong></mark><strong> </strong>(<mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc5789">RFC 5789</a></strong></mark>)</summary><div class="indented"><p id="f6457698-2cb2-44ae-b744-c8cab1962462" class="">Semelhante ao <mark class="highlight-blue_background">PUT </mark> mas deve ser usado apenas para atualizar um recurso de forma parcial… Por exemplo, atualizar apenas uma propriedade do recurso.</p><p id="fffc1f8d-3c23-8003-b3a6-da5bf99b8334" class=""><strong>Propriedades Comuns:</strong><div class="indented"><ul id="5f57f0f9-15a6-40db-9926-fd0a27d77055" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Requisição necessita de um body.</strong></li></ul><ul id="02e74864-f0d3-4433-ae6a-5b243759b52a" class="bulleted-list"><li style="list-style-type:disc"><strong>✅ Resposta com body.</strong></li></ul><ul id="1c9c53c9-338f-47af-b5de-4105200553af" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Safe Method</strong> - Pois existe a possibilidade de se alterar dados do recurso no servidor mesmo que parcialmente.</li></ul><ul id="afdce523-8b2d-42cb-816f-e9ba09d9a667" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Idempotente</strong> - Pois a múltiplas request deste verbo afetaram o recurso com o processamento da alteração no servidor e pode afetar parcialmente o estado do recurso no servidor.</li></ul><ul id="8cb51763-8942-4da7-8929-1a0700a41701" class="bulleted-list"><li style="list-style-type:disc"><strong>⚠️ Cacheable Method</strong> - Cacheável somente se a resposta tiver definido explicitamente informações de quão recente é a informação (<em><a href="https://datatracker.ietf.org/doc/html/rfc9111#name-freshness">freshness</a></em>) <strong>e</strong> um cabeçalho <em>Content-Location</em> for definido para o mesmo valor da URL acessada.<p id="9ac7e986-b4fb-4adf-a0d6-accb78cfd2ad" class="">Informações de <em>freshness</em> podem ser fornecidas através de cabeçalhos como <em>Expires</em> ou <em>Cache-Control: max-age</em>.</p></li></ul></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-red_background"><strong>DELETE</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.5">RFC 7231</a></mark><mark class="highlight-default_background">)</mark></summary><div class="indented"><p id="9c2ac982-5472-4040-9da7-61e601ee25bb" class="">Exclui um recurso que estava anteriormente salvo no servidor.</p><p id="18b8755d-e090-4d65-b133-ac24430b5649" class=""><strong>Propriedades Comuns:</strong><div class="indented"><ul id="b1943bc4-1907-4085-a140-075194f24fde" class="bulleted-list"><li style="list-style-type:disc"><strong>❌ Requisição necessita de um body.</strong></li></ul><ul id="1fdff491-9171-4c09-ba7b-313dd831d6ba" class="bulleted-list"><li style="list-style-type:disc"><strong>❌ Resposta com body.</strong></li></ul><ul id="13145bd1-1f73-4489-ac5e-7e4a86c0aee4" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Safe Method</strong> - Pois o recurso está afetando o estado e existência do recurso no servidor.</li></ul><ul id="22fa1c42-a7b5-4361-94ee-a0a48dba9f11" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Idempotente</strong> - Pois após a exclusão do recurso, requests múltiplos não poderão exercer mais nenhum efeito no servidor já que o recurso já foi excluído.</li></ul><ul id="bb051d62-1ac1-4f22-a109-879a719d8029" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Cacheable Method.</strong></li></ul></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-pink_background"><strong>Options</strong></mark><mark class="highlight-default_background"><strong> </strong></mark><mark class="highlight-default_background">(</mark><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.7">RFC 7231</a></strong></mark><mark class="highlight-default_background">)</mark></summary><div class="indented"><p id="afb276e8-0911-4947-8fb9-891cdbc11467" class="">Serve para recuperar informações do que é permitido fazer pela API.</p><p id="641c322b-57bf-4620-86c2-19a59f692689" class=""><strong>Propriedades Comuns:</strong><div class="indented"><ul id="f4c92c02-a167-41f5-8148-5412842fa317" class="bulleted-list"><li style="list-style-type:disc">❌ <strong>Requisição necessita de um body.</strong></li></ul><ul id="64936183-1e57-47b0-8332-e735a5f6e97e" class="bulleted-list"><li style="list-style-type:disc"><strong>❌ Resposta com body.</strong></li></ul><ul id="b1f30d2f-99bc-4a61-b9e7-d6826f466c19" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Safe Method</strong> - Pois o a consulta por si só não altera o estado do recurso no servidor.</li></ul><ul id="08d6243e-b1f5-4bd5-a58c-377705a2f471" class="bulleted-list"><li style="list-style-type:disc">✅ <strong>Idempotente</strong> - Pois a múltiplas consultas ao recurso se manterá a mesma independente de quantas requisições repetidas sejam enviadas.</li></ul><ul id="ad2d194f-e420-4a60-b27f-1b4576993c14" class="bulleted-list"><li style="list-style-type:disc"><strong>❌ Cacheable Method.</strong></li></ul></div></p></div></details><h2 id="a82be50c-c2fa-49da-85ba-6077916d53e1" class="">Panorama geral dos métodos/verbos HTTP</h2><table id="b0bb9330-3c41-44b5-934d-78cf475669fc" class="simple-table"><thead class="simple-table-header"><tr id="3dc34f31-cdd8-4a77-833e-e4fa28673f16"><th id=";pMF" class="block-color-blue simple-table-header" style="width:77px">Método/Verbo</th><th id="vtaL" class="block-color-blue simple-table-header" style="width:109px">especificação</th><th id="T==w" class="block-color-blue simple-table-header" style="width:76px">Body Request</th><th id=";UKT" class="block-color-blue simple-table-header" style="width:83px">Body Response</th><th id="VUkm" class="block-color-blue simple-table-header" style="width:54px"><strong>Safe</strong></th><th id="gK}D" class="block-color-blue simple-table-header" style="width:105px"><strong>Idempotente</strong> </th><th id="SK=^" class="block-color-blue simple-table-header" style="width:88px"><strong>Cacheable </strong></th></tr></thead><tbody><tr id="e96de21f-9d94-4e79-a032-690c1e6574e4"><td id=";pMF" class="" style="width:77px"><mark class="highlight-teal_background">GET</mark></td><td id="vtaL" class="" style="width:109px"><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1">RFC 7231</a></strong></mark></td><td id="T==w" class="" style="width:76px">❌</td><td id=";UKT" class="" style="width:83px">✅</td><td id="VUkm" class="" style="width:54px">✅</td><td id="gK}D" class="" style="width:105px">✅</td><td id="SK=^" class="" style="width:88px">✅</td></tr><tr id="65bcc373-a428-483e-a7b9-8368eabc9f48"><td id=";pMF" class="" style="width:77px"><mark class="highlight-teal_background"><strong>HEAD</strong></mark></td><td id="vtaL" class="" style="width:109px"><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.2">RFC 7231</a></strong></mark></td><td id="T==w" class="" style="width:76px">❌</td><td id=";UKT" class="" style="width:83px">❌</td><td id="VUkm" class="" style="width:54px">✅</td><td id="gK}D" class="" style="width:105px">✅</td><td id="SK=^" class="" style="width:88px">✅</td></tr><tr id="1f978baa-6cf8-479e-bf4a-16233e42d9cc"><td id=";pMF" class="" style="width:77px"><mark class="highlight-pink_background"><strong>Options</strong></mark><mark class="highlight-default_background"> </mark></td><td id="vtaL" class="" style="width:109px"><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.7">RFC 7231</a></strong></mark></td><td id="T==w" class="" style="width:76px">❌</td><td id=";UKT" class="" style="width:83px">❌</td><td id="VUkm" class="" style="width:54px">✅ </td><td id="gK}D" class="" style="width:105px">✅ </td><td id="SK=^" class="" style="width:88px">❌</td></tr><tr id="9326c96a-1667-4728-a935-2e105d3f75ad"><td id=";pMF" class="" style="width:77px"><mark class="highlight-red_background"><strong>DELETE</strong></mark><mark class="highlight-default_background"> </mark></td><td id="vtaL" class="" style="width:109px"><mark class="highlight-blue"><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.5">RFC 7231</a></mark></td><td id="T==w" class="" style="width:76px">❌</td><td id=";UKT" class="" style="width:83px">❌</td><td id="VUkm" class="" style="width:54px">❌</td><td id="gK}D" class="" style="width:105px">✅ </td><td id="SK=^" class="" style="width:88px">❌</td></tr><tr id="fedd4a7f-bdde-432e-a653-424e3a6bc6a4"><td id=";pMF" class="" style="width:77px"><mark class="highlight-blue_background"><strong>PUT</strong></mark><mark class="highlight-default_background"> </mark></td><td id="vtaL" class="" style="width:109px"><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4">RFC 7231</a></strong></mark></td><td id="T==w" class="" style="width:76px">✅</td><td id=";UKT" class="" style="width:83px">✅</td><td id="VUkm" class="" style="width:54px">❌</td><td id="gK}D" class="" style="width:105px">✅</td><td id="SK=^" class="" style="width:88px">❌</td></tr><tr id="d6e4cb6f-7af1-4c08-b24c-e6ff349dfff0"><td id=";pMF" class="" style="width:77px"><mark class="highlight-yellow_background"><strong>POST</strong></mark><mark class="highlight-default_background"> </mark></td><td id="vtaL" class="" style="width:109px"><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.3">RFC 7231</a></strong></mark></td><td id="T==w" class="" style="width:76px">✅</td><td id=";UKT" class="" style="width:83px">✅</td><td id="VUkm" class="" style="width:54px">❌</td><td id="gK}D" class="" style="width:105px">❌</td><td id="SK=^" class="" style="width:88px"><strong>⚠️</strong></td></tr><tr id="c74e19ec-4e5e-4940-806e-8b4566b89b45"><td id=";pMF" class="" style="width:77px"><mark class="highlight-purple_background"><strong>PATCH</strong></mark> </td><td id="vtaL" class="" style="width:109px"><mark class="highlight-blue"><strong><a href="https://datatracker.ietf.org/doc/html/rfc5789">RFC 5789</a></strong></mark></td><td id="T==w" class="" style="width:76px">✅</td><td id=";UKT" class="" style="width:83px">✅</td><td id="VUkm" class="" style="width:54px">❌</td><td id="gK}D" class="" style="width:105px">❌</td><td id="SK=^" class="" style="width:88px"><strong>⚠️</strong></td></tr></tbody></table><h2 id="63ca734f-35e5-41f7-b661-8a5dc0ae1264" class=""><strong>Modelagem</strong></h2><hr id="479166b1-4093-4323-be9e-6a877d47c439"/><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Parâmetros de Query</strong></summary><div class="indented"><p id="2f3ea610-aa4a-4983-8f12-391b091848aa" class="">Útil quando é necessário enviar dados de forma a economizar recursos trafegados na chamada da API pois os dados são passados diretamente na URL além de limitar o tamanho do response já que os dados podem ser filtrados pelos parâmetros e assim <mark class="highlight-default"><strong>trafegar apenas o que é absolutamente necessário naquela chamada</strong></mark>.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="50f260ad-cb47-425b-8ca9-a37b4c4b3117"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="4ab491c5-df52-49de-b092-9ac7fc48a9ba" class=""><strong>Exemplo</strong>:</p><p id="458239cd-2764-499f-b482-883e20e9303c" class="">https://host:port/api/teste/operacao?<mark class="highlight-teal"><strong>filtro=algumacoisa&amp;pagina=0&amp;limiteporpagina=10</strong></mark></p></div></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>HATEOAS</strong></summary><div class="indented"><p id="3e417956-b522-4d9b-8316-fa047c42b6a3" class=""><mark class="highlight-blue"><strong>H</strong></mark><strong>ypermedia </strong><mark class="highlight-blue"><strong>A</strong></mark><strong>s </strong><mark class="highlight-blue"><strong>T</strong></mark><strong>he </strong><mark class="highlight-blue"><strong>E</strong></mark><strong>ngine </strong><mark class="highlight-blue"><strong>A</strong></mark><strong>pplication </strong><mark class="highlight-blue"><strong>S</strong></mark><strong>tate</strong> (Hipermídia Como Motor De Estado Da Aplicação).</p><p id="eb8aa79b-80cc-4f4a-8d12-cf03a7439752" class="">Além dos dados do recurso, é adicionado a informação sobre as operações que se pode fazer com ou a partir desse recurso.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="4e91b41d-2089-4756-8448-a5708eb5ce32"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="e7cc7a17-c8e8-4f67-b85e-9dadff539729" class="">Exemplo de uma maneira como se pode incluir no corpo do response a informação sobre quais operações um determinado recurso tem acesso naquele momento.<div class="indented"><p id="1c984138-40b3-4c34-92b7-ea7b05fd540b" class="">{<div class="indented"><p id="b93ce6a1-bf0d-4baa-9b8a-6de3d66ead58" class=""><mark class="highlight-orange">“propriedade1”</mark> : <mark class="highlight-blue">“valor”</mark>,</p><p id="d59e48b9-975b-49b4-bd32-88885fdef106" class=""><mark class="highlight-orange">“propriedade2”</mark> : <mark class="highlight-blue">“valor”</mark>,</p><p id="61c936ea-73cb-4e09-ad60-ab1615345240" class=""><mark class="highlight-red"><strong>“links”</strong></mark><strong>: {</strong><div class="indented"><p id="8ddea712-e44d-461b-9a65-669fd076165a" class=""><mark class="highlight-red"><strong>“operacao1” </strong></mark><strong>: </strong><mark class="highlight-purple"><strong>“recurso ou caminho”</strong></mark><strong>,</strong></p><p id="eeae015c-8dc4-4dad-aa94-32fabbe2c47f" class=""><mark class="highlight-red"><strong>“operacao2” </strong></mark><strong>: </strong><mark class="highlight-purple"><strong>“recurso ou caminho”</strong></mark><strong>,</strong></p><p id="d1b99c58-5642-4f8f-ba31-92c1b01abcb0" class=""><mark class="highlight-red"><strong>“operacao3” </strong></mark><strong>: </strong><mark class="highlight-purple"><strong>“recurso ou caminho”</strong></mark></p></div></p><p id="68d711b1-6e0e-451d-82aa-76762b51b410" class=""><strong>}</strong></p></div></p><p id="2b6a8fbd-7038-49c7-92a2-139b158519f7" class="">}</p></div></p><figure id="1716ca1a-9274-4d84-bb20-5b8f3bf7ad41"><a href="https://en.wikipedia.org/wiki/HATEOAS" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">HATEOAS</div><div class="bookmark-description">Hypermedia as the engine of application state (HATEOAS) is a constraint of the REST software architectural style that distinguishes it from other network architectural styles.</div></div><div class="bookmark-href"><img src="https://en.wikipedia.org/static/apple-touch/wikipedia.png" class="icon bookmark-icon"/>https://en.wikipedia.org/wiki/HATEOAS</div></div></a></figure></div></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>HAL</strong></summary><div class="indented"><p id="1a242a3c-a790-4ae2-ad56-d054a9074816" class=""><mark class="highlight-blue"><strong>H</strong></mark><strong>ypertext </strong><mark class="highlight-blue"><strong>A</strong></mark><strong>pplication </strong><mark class="highlight-blue"><strong>L</strong></mark><strong>anguage</strong> (Linguagem de Hipertexto da Aplicação)</p><p id="48ce8d20-ed3f-42f4-b92e-80642ea60d16" class="">Usa a mesma ideia do <strong>HATEOAS</strong> mas com uma linguagem um pouco mais desenvolvida e estruturada mas em essência tem o mesmo objetivo onde sua descrição é melhor abordada nos links a seguir.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="cd6955d2-9da0-4767-8a07-47022b2eef57"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><figure id="ff9146e2-f39a-4680-a13c-4af47ed08356"><a href="https://en.wikipedia.org/wiki/Hypertext_Application_Language" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Hypertext Application Language</div><div class="bookmark-description">Hypertext Application Language (HAL) is a convention for defining hypermedia such as links to external resources within JSON or XML code.  It is documented in an Internet Draft (a &quot;work in progress&quot;), with the latest version 11 published the 10th of October 2023.  The standard was initially proposed in June 2012 specifically for use with JSON&amp;#91;1&amp;#93; and has since become available in two variations, JSON and XML. The two associated MIME types are media type: application/hal+xml and media type: application/hal+json.&amp;#91;2&amp;#93;</div></div><div class="bookmark-href"><img src="https://en.wikipedia.org/static/apple-touch/wikipedia.png" class="icon bookmark-icon"/>https://en.wikipedia.org/wiki/Hypertext_Application_Language</div></div></a></figure><figure id="e8908c01-5ecf-4b4f-aeda-9f2612383ade"><a href="https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-11" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">JSON Hypertext Application Language</div><div class="bookmark-description">This document proposes a media type for representing resources and their relations with hyperlinks.</div></div><div class="bookmark-href"><img src="https://static.ietf.org/dt/12.23.0/ietf/images/ietf-logo-nor-180.png" class="icon bookmark-icon"/>https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-11</div></div></a></figure></div></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Versionamento</strong></summary><div class="indented"><p id="770852b7-c97c-4e16-b98e-d10941ef503b" class="">Quando uma API tem sua estrutura alterada que pode acabar comprometendo as aplicações que a utilizam pode ser interessante versionar aquele endpoint de modo a que a versão da estrutura que é conhecida por todos até então possa se manter disponível até que todas as aplicações clientes sejam avisadas para atualizar para a nova estrutura.</p><p id="46afcf85-9216-4b98-ba31-7eef70cdcd92" class="">
+</p><p id="c49f6a5b-3587-4331-8161-0a1649de18b4" class="">A forma em que isso é feito basta incluir na URL do endpoint a informação de versão.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f01d7d45-023d-4562-aea6-fc78826d5a36"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="fffc1f8d-3c23-8059-8649-cdcda1b9c270" class="">https://host:port/api/<mark class="highlight-blue"><strong>v1</strong></mark>/teste/operacao</p></div></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Tempo Real</strong></summary><div class="indented"><p id="83fdd2cf-c48e-4098-9dd4-9eb5520fcd53" class="">Pode ser necessário que uma aplicação precise atualizar em tempo real os dados provenientes de uma API e para atualizar esses dados de maneira online é necessário o uso de alguma técnica que faça consultas a API. A seguir veremos algumas dessas técnicas e estratégias:</p><ul id="cdad6556-7866-4f62-97e5-1346fc8cf2a8" class="toggle"><li><details open=""><summary><strong>Short Polling</strong></summary><p id="acdc5f0c-a634-41ba-b8ba-c0626ed32300" class="">Envia ao servidor requisições em um curto período de tempo para obter os dados atualizados dentro deste intervalo.</p><div id="365649c0-8abe-4f8d-96cc-9a4bd2508ddf" class="column-list"><div id="e92b2f59-a412-4046-b54b-4100b0b14317" style="width:50%" class="column"><ul id="535fc366-234b-4213-8adc-732541a78500" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal_background"><strong>Vantagem</strong></mark><ul id="c4aa39e7-8333-41f2-b30c-168b874a8a41" class="bulleted-list"><li style="list-style-type:circle">Simples de implementar já que basta que a aplicação crie uma rotina de enviar requisições seguidas dentro de um intervalo de tempo definido.</li></ul><ul id="1647a0ce-212a-4f32-8b16-7b15c9fcd1ed" class="bulleted-list"><li style="list-style-type:circle">Funciona em praticamente todos os navegadores e ambientes, pois utiliza tecnologias HTTP comuns, sem a necessidade de suporte a <strong>WebSockets</strong> ou outros protocolos mais complexos.</li></ul><ul id="5af1a41b-01a4-4c93-8fe3-dd818dc76ccc" class="bulleted-list"><li style="list-style-type:circle">O cliente tem mais controle sobre a frequência de atualização, podendo ajustar os intervalos de polling de acordo com as necessidades específicas do aplicativo ou as capacidades da rede.</li></ul></li></ul></div><div id="a65e3e5d-f16a-44d4-a9f8-4546db28a0be" style="width:50%" class="column"><ul id="74c47053-101b-494a-bb99-3beb55baa1ab" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red_background"><strong>Desvantagem</strong></mark><ul id="1c16f10c-951f-4700-9c0f-e439703ad1a0" class="bulleted-list"><li style="list-style-type:circle">A atualização não é de fato em tempo real já que o dados poderá ficar desatualizado caso alguma alteração seja feita no espaço de tempo entre uma requisição e outra;</li></ul><ul id="89b69b83-c61a-44a5-a15f-5cd89462bd5f" class="bulleted-list"><li style="list-style-type:circle">Dependendo do intervalo de tempo que se deseje utilizar para o envio das requisições, isso poderá adicionar ao servidor da API uma sobrecarga e causar até problemas de performance para o cliente que está fazendo as requisições e até mesmo para todos os outros.</li></ul><ul id="0b6df7d4-c44f-463e-8796-4f3280fc4b17" class="bulleted-list"><li style="list-style-type:circle">Apenas comunicação unidirecional (do servidor para o cliente);</li></ul></li></ul></div></div></details></li></ul><ul id="2991a84e-258f-4fe8-8385-642ed04e8d91" class="toggle"><li><details open=""><summary><strong>Long Polling</strong></summary><p id="65f85e81-ee74-4e14-b1e4-ff37e5331fe9" class="">Como uma tentativa de eliminar as desvantagens oferecidas pelo Short Polling, o Long Polling tem como estratégia enviar uma requisição para o servidor esperando que a conexão com ele se seja fechada após o recurso daquela chamada tenha sofrido alguma alteração e assim a aplicação que está fazendo a requisição passa a ter uma posição passiva já que ela apenas aguarda que o servidor tenha a iniciativa de enviar a resposta apenas após a atualização do recurso no lado do servidor.</p><div id="32d3128d-b80c-4e20-a9a3-83247b4fbe6a" class="column-list"><div id="113dbaae-e1c5-4ee4-962e-9ad972b5ef48" style="width:50%" class="column"><ul id="4194ba50-d10e-4a0c-9cba-4c385fc6de9d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal_background"><strong>Vantagem</strong></mark><ul id="77a7c576-2975-449b-9b13-487eb73dfecd" class="bulleted-list"><li style="list-style-type:circle">Diminui a quantidade de requisições realizadas e garante que a atualização será atualizada para a aplicação cliente verdadeiramente em tempo real já que o servidor informará ao cliente imediatamente após o recurso ter sido alterado.</li></ul><p id="9154c9b8-131e-43bd-8e8d-07bb6e13c7c5" class="">
+</p></li></ul></div><div id="cdba16ac-de55-484f-8794-4301a190147f" style="width:50%" class="column"><ul id="065a8aad-bc58-4f51-ba3c-50ee3aa9c756" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red_background"><strong>Desvantagem</strong></mark><ul id="81ccceac-8bcc-41e2-b7b4-ef4c611475c7" class="bulleted-list"><li style="list-style-type:circle">Manter uma conexão aberta com o servidor esperando uma resposta pode ser muito custoso para ambos os lados já que mantê-la custa caro em questão de redes e processamento;</li></ul><ul id="4ce7a994-f967-4f15-8767-fd87dffa0a2a" class="bulleted-list"><li style="list-style-type:circle">A implementação no lado do servidor para decidir quando enviar aos clientes a informação das alterações e de quando a sessão deve ou não ser mantida acrescenta uma maior camada de complexidade e isso pode ou não causar problemas de performance para o servidor (dependerá do quão bem implementada essa decisão foi);</li></ul><ul id="cdb1a6a3-c480-4403-81f7-0e22b08230df" class="bulleted-list"><li style="list-style-type:circle">Como o <strong>Long Polling</strong> mantém a conexão aberta por um período mais longo, pode haver casos em que a conexão é perdida devido a problemas de rede ou falhas no servidor;</li></ul><ul id="8efe9660-5dc1-4add-b2f9-1d491538c2d2" class="bulleted-list"><li style="list-style-type:circle">Apenas comunicação unidirecional (do servidor para o cliente);</li></ul></li></ul></div></div></details></li></ul><ul id="8b4ab19c-fbcb-4621-8f14-4a554c8895b5" class="toggle"><li><details open=""><summary><strong>Server-Sent  Events</strong></summary><p id="2e88c821-cf7b-4b8e-8cf3-842bf3950a50" class="">Uma maneira mais moderna e elegante para lidar com atualizações de forma online é o <strong>Server-Sent Events</strong> (Eventos Enviados pelo Servidor) que consiste na API fornecendo uma <strong>Event Source</strong> (Fonte de Eventos) que sempre que o cliente abrir uma conexão(que se manterá aberta) será enviado os eventos dessa fonte de forma ativa para a conexão aberta pelo cliente.</p><div id="ecc9a735-d78e-4de2-b1ae-cea83e31c84a" class="column-list"><div id="17e0b6ed-3101-413c-ad5e-bcced1fa7941" style="width:50%" class="column"><ul id="8512ba1c-9f9e-4f89-a982-a249625c5f93" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal_background"><strong>Vantagem</strong></mark><ul id="83dd8c41-20ca-4c67-a4ef-e6455e810ff9" class="bulleted-list"><li style="list-style-type:circle">Ao contrário do <strong>Long Polling</strong> não é necessário enviar uma nova requisição sempre que um recurso seja alterado pois o <strong>Server-Sent Events</strong> envia sempre para as conexões abertas;</li></ul><ul id="8caef7a2-a6eb-4976-9068-a6546c76e541" class="bulleted-list"><li style="list-style-type:circle">Caso o servidor falhe ou fique indisponível, o cliente não precisará tomar nenhuma ação pois quando o servidor for reestabelecido ele volta a enviar os eventos;</li></ul></li></ul></div><div id="264656fe-e405-4473-a6d3-64f87f38f782" style="width:50%" class="column"><ul id="094ad217-e377-4869-b91b-a9ef9cf14a9b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red_background"><strong>Desvantagem</strong></mark><ul id="fffc1f8d-3c23-80c0-b107-c03e5a674cb5" class="bulleted-list"><li style="list-style-type:circle">Restrição do número de conexões simultâneas pelo navegador;</li></ul><ul id="0115db63-de27-4b4f-9179-39ce7f2015e1" class="bulleted-list"><li style="list-style-type:circle">Apenas comunicação unidirecional (do servidor para o cliente);</li></ul></li></ul></div></div></details></li></ul><ul id="8b2a93f8-e0b0-4112-9071-309d86d56cb2" class="toggle"><li><details open=""><summary><strong>WebSocket</strong></summary><p id="36c32c34-c797-42dd-b153-f865932b7814" class="">Uma alternativa para o <strong>Polling (Short e Long)</strong> e <strong>Server-Sent Events</strong> com a vantagem de permitir uma conexão bidirecional entre o cliente e servidor ao estabelecer um túnel de rede entre as duas partes (<strong>conexão full duplex</strong>)<strong>.</strong><div class="indented"><figure id="f44db97c-6ede-49c0-92cd-ef32e42d2b3d" class="image"><a href="Conteu%CC%81do%20do%20curso/image.png"><img style="width:1794px" src="Conteu%CC%81do%20do%20curso/image.png"/></a></figure></div></p></details></li></ul></div></details></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
