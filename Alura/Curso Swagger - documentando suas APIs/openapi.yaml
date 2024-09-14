@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: "Api Consultorio"
+  description: "Descrição da API"
+  version: 0.0.1
+  termsOfService: https://mockapi.io/projects/66d26dac184dce1713cd8e33
+  contact:
+    name: "Suporte Devs"
+    email: ramon.simao@gmail.com
+    url: https://mockapi.io/projects/66d26dac184dce1713cd8e33
+  license:
+    name: "GPLv3"
+    url: https://www.gnu.org/licenses/gpl-3.0.pt-br.html
+externalDocs:
+  description: "Documentação externa"
+  url: https://github.com/mockapi-io/docs/wiki
+servers: 
+  - url: http://localhost:8082/api/v1/docswagger/exemplo/
+    description: "Descrição da Api de objetos json"
+components:
+  schemas:
+    EstruturaJson:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: '^\d' 
+        data:
+          type: string
+          format: date-time
+        string:
+          type: string
+        numero:
+          type: integer
+        booleano:
+          type: boolean
+    EstruturaJsonSemId:
+      type: object
+      properties:
+        data:
+          type: string
+          format: date-time
+        string:
+          type: string
+        numero:
+          type: integer
+        booleano:
+          type: boolean      
+    RetornoPadraoServidor:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        error:
+          type: string
+        path:
+          type: string
+          format: path
+  parameters:
+    id:
+      name: id
+      description: "Identificador do objeto json ao qual se pretende manipular"
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^\d'
+        minimum: 1
+    query_id:
+      name: id
+      description: "Identificador do objeto json ao qual se pretende manipular"
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^\d'
+        minimum: 1
+paths:
+  /json-completo:
+    get:
+      summary: "Caso nenhum parâmetro seja in formado, então é retornado um array json com todos os tipos de estrutura de dados nele. Mas caso seja informado algum parâmetro de filtragem, então é retornado apenas os dados que satisfaçam o filtro informado através dos parâmetros."
+      parameters: 
+        - $ref: "#/components/parameters/query_id"
+      responses:
+        200:
+          description: "Dados consultados e retornados, caso existam, com sucesso!"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:  
+                  $ref: "#/components/schemas/EstruturaJson"
+        401:
+          description: "Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado."
+          content:
+            text/plain:
+              example: "Token inválido ou expirado!"
+        404:
+          description: "Quando nenhum registro que satisfaça a filtragem é localizado."
+        500:
+          description: "Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor."
+          content:
+            text/plain:
+              example: "Falha ao converter o parâmetro \"ID\" de String para Long"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetornoPadraoServidor"
+    post:
+      summary: "Cadastra um novo Objeto json em memória que poderá ser consultado posteriormente."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EstruturaJsonSemId"
+      responses:
+        201:
+          description: "Objeto json cadastrado com um novo ID"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EstruturaJson"
+        400:
+          description: "Caso os dados do payload estejam em desacordo com o esperado"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetornoPadraoServidor"
+        401:
+          description: "Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado."
+          content:
+            text/plain:
+              example: "Token inválido ou expirado!"
+        500:
+          description: "Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor."
+          content:
+            text/plain:
+              example: "Falha ao cadastrar o objeto Json em memória."
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetornoPadraoServidor"
+  /json-completo/{id}:
+    put:
+      summary: "Altera toda estrutura do objeto json de uma só vez com o dados fornecidos no json do payload."
+      parameters: 
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EstruturaJsonSemId"
+      responses:
+        200:
+          description: "Estrutura atualizada por completo"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EstruturaJson"
+        400:
+          description: "Caso os dados do payload estejam em desacordo com o esperado"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetornoPadraoServidor"
+        401:
+          description: "Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado."
+          content:
+            text/plain:
+              example: "Token inválido ou expirado!"
+        404:
+          description: "Quando o objeto que se pretende atualizar não existe no cadastro em memória, não é possível realizar a alteração por motivos óbvios."
+        500:
+          description: "Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor."
+          content:
+            text/plain:
+              example: "Alguma mensagem de erro causada no servidor."
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetornoPadraoServidor"
+    delete:
+      summary: "Remove a estrutura json através do seu id de cadastro"
+      parameters: 
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: "Conteúdo excluído permanentemente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EstruturaJson"
+        400:
+          description: "Caso os dados do payload estejam em desacordo com o esperado"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetornoPadraoServidor"
+        401:
+          description: "Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado."
+          content:
+            text/plain:
+              example: "Token inválido ou expirado!"
+        404:
+          description: "Quando o objeto que se pretende remover não existe no cadastro em memória, não é possível realizar a alteração por motivos óbvios."
+        500:
+          description: "Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor."
+          content:
+            text/plain:
+              example: "Alguma mensagem de erro causada no servidor."
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetornoPadraoServidor"
+            
