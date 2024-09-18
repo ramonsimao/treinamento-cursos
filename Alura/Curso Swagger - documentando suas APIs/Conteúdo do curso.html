@@ -1,0 +1,971 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Conteúdo do Curso Swagger: documentando suas APIs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0741d346-d5c9-42a9-aba2-471c5e2adcd2" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/copy_lightgray.svg"/></div><h1 class="page-title">Conteúdo do Curso Swagger: documentando suas APIs</h1><p class="page-description"></p></header><div class="page-body"><p id="101c1f8d-3c23-80d4-aa89-c29940f708bc" class="">
+</p><nav id="101c1f8d-3c23-80da-ae22-f68ef3728589" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#254b1732-3f87-4a13-b57f-80be4c9b8d43">Implementação das APIs de Exemplo</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#101c1f8d-3c23-8014-be91-e94c8479f0d9"><strong>API de Access Token</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#101c1f8d-3c23-807e-be17-c9eab00821be"><strong>API de Exemplo aqui do curso</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#35bdd56a-bb76-4be6-894f-d1cb3725901b"><strong>O que é Swagger?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#101c1f8d-3c23-800b-b406-c80ef67fde11"><a href="https://swagger.io/tools/swaggerhub/">SwaggerHub</a></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#101c1f8d-3c23-80a0-82e4-f3f24f38874d"><a href="https://swagger.io/tools/open-source/">Swagger Open Source</a></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#24d0b839-72e9-41e5-8481-f1e3c97bdb87"><strong>Especificação Open API? (</strong><a href="https://spec.openapis.org/oas/latest.html">🔗</a><strong>)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#52acac98-9ace-4a45-b1f8-aa5164ffe1db"><strong>Algumas funcionalidades básicas do YAML</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#63932d10-0567-4d14-a1cc-a2b2ddb1b887"><strong>Informações básicas:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#101c1f8d-3c23-8088-a3b1-f8d9b0513672"><strong>Informações técnicas da API:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#101c1f8d-3c23-80a5-af47-ce68a66fa1d8"><strong>Criar uma documentação pelo código </strong></a></div></nav><h1 id="254b1732-3f87-4a13-b57f-80be4c9b8d43" class="">Implementação das APIs de Exemplo</h1><hr id="5eb606d5-cc44-4298-ac58-c22057f7ff15"/><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="101c1f8d-3c23-8092-aeaf-f24af61c091c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="83f6aebb-94ba-4270-bcef-98e238326480" class="">O curso utilizou como exemplo uma API criada na ferramenta online <a href="https://mockapi.io/projects">Mockapi</a> mas para permitir um maior controle das características da API como uso de queries e variáveis no caminho dos endpoints e a autorização da invocação através de um Access Token, foi criado duas APIs em Spring Boot (Versão 3.3.3) sendo uma API responsável pela validação e geração do Token e a outra API que serviu como modelo para a documentação através do Swagger Editor.</p></div></figure><h2 id="101c1f8d-3c23-8014-be91-e94c8479f0d9" class=""><strong>API de Access Token</strong></h2><figure id="105c1f8d-3c23-8044-aa28-c1b032386bf9"><a href="https://github.com/ramonsimao/auth-jwt" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">GitHub - ramonsimao/auth-jwt: Springboot que disponibiliza um exemplo de API autenticadora usando o JWT</div><div class="bookmark-description">Springboot que disponibiliza um exemplo de API autenticadora usando o JWT - ramonsimao/auth-jwt</div></div><div class="bookmark-href"><img src="https://github.com/fluidicon.png" class="icon bookmark-icon"/>https://github.com/ramonsimao/auth-jwt</div></div><img src="https://opengraph.githubassets.com/b29d3a84895874c4bf63d8d4a5e1c05866a55aa5a6d03be67548637db2d1377f/ramonsimao/auth-jwt" class="bookmark-image"/></a></figure><h2 id="101c1f8d-3c23-807e-be17-c9eab00821be" class=""><strong>API de Exemplo aqui do curso</strong></h2><figure id="105c1f8d-3c23-8090-a614-c9f73c8e78cb"><a href="https://github.com/ramonsimao/curso-swagger" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">GitHub - ramonsimao/curso-swagger: APIs utilizadas pelo curso de Documentação de APIs Restfull utilizando o &quot;swagger editor&quot;</div><div class="bookmark-description">APIs utilizadas pelo curso de Documentação de APIs Restfull utilizando o &quot;swagger editor&quot; - ramonsimao/curso-swagger</div></div><div class="bookmark-href"><img src="https://github.com/fluidicon.png" class="icon bookmark-icon"/>https://github.com/ramonsimao/curso-swagger</div></div><img src="https://opengraph.githubassets.com/a64ca87c36fb6e62f109949453aad38842e2ff27118ad9f600759c502112dd6f/ramonsimao/curso-swagger" class="bookmark-image"/></a></figure><h1 id="35bdd56a-bb76-4be6-894f-d1cb3725901b" class=""><strong>O que é Swagger?</strong></h1><hr id="101c1f8d-3c23-800e-af2b-c988a7a61b1f"/><p id="101c1f8d-3c23-802a-8f18-f27e3cdb8aa4" class="">É um conjunto de ferramentas open-source que possibilita aos desenvolvedores gerenciar, modelar (chegando até a gerar o código das APIs modeladas), monitorar, testar e, em seu uso mais comum, documentar APIs existentes. Isso é feito de maneira dinâmica, permitindo gerar uma página que também serve como um cliente HTTP para executar as APIs.</p><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><a href="https://swagger.io/tools/swaggerhub/">SwaggerHub</a></summary><div class="indented"><p id="101c1f8d-3c23-8022-ac2c-cca6778c7196" class="">Um conjunto pago de ferramentas que oferece diversas funcionalidades avançadas.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><a href="https://swagger.io/tools/open-source/">Swagger Open Source</a></summary><div class="indented"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><mark class="highlight-default"><a href="https://swagger.io/tools/swagger-codegen/">Swagger Codegen</a></mark></summary><div class="indented"><p id="101c1f8d-3c23-8063-813c-edf78c00a8c3" class="">Ferramenta capaz de gerar stubs a partir de uma API modelada conforme a especificação OpenAPI. Suporta cerca de 20 linguagens, incluindo .NET, Java, Go e TypeScript.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><a href="https://swagger.io/tools/swagger-editor/">Swagger Editor</a></summary><div class="indented"><p id="7fcfc1db-00b7-4037-8f76-1fdae10a7b31" class="">Um editor que permite personalizar a documentação de uma API através de uma especificação chamada YAML (<mark class="highlight-blue"><strong>Y</strong></mark>AML <mark class="highlight-blue"><strong>A</strong></mark>in&#x27;t a <mark class="highlight-blue"><strong>M</strong></mark>arkup <mark class="highlight-blue"><strong>L</strong></mark>anguage). Enquanto você escreve o código em YAML, o editor constrói em tempo real uma página HTML dinâmica. Essa página oferece acesso às informações de cada endpoint e suas particularidades, além de permitir a execução das APIs documentadas.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><a href="https://swagger.io/tools/swagger-ui/">Swagger UI</a></summary><div class="indented"><p id="101c1f8d-3c23-80d3-90d0-c6effd715ab8" class="">Ferramenta que nos permite, a partir de YAML convertido em JSON, gerar a página da documentação de maneira independente ao editor e assim tornar possível disponibilizar essa página em qualquer servidor web e até mesmo dentro da própria aplicação que disponibiliza a API documentada.</p></div></details></div></details><h1 id="24d0b839-72e9-41e5-8481-f1e3c97bdb87" class=""><strong>Especificação Open API? (</strong><a href="https://spec.openapis.org/oas/latest.html">🔗</a><strong>)</strong></h1><hr id="101c1f8d-3c23-8097-8259-e7fac52c9b09"/><p id="101c1f8d-3c23-80bd-a7ec-fff8b2003032" class="">O que é Open API? A Especificação Open API fornece um padrão formal para descrever APIs HTTP.</p><p id="101c1f8d-3c23-8083-bba5-c05dc8d0c106" class="">Isso permite que as pessoas entendam como uma API funciona, como uma sequência de APIs trabalham juntas, gerem código do cliente, criem testes, apliquem padrões de design e muito, muito mais.</p><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><strong>Algumas funcionalidades básicas do YAML</strong></summary><div class="indented"><p id="36bdd334-a3f4-4083-ae9f-7ae51541981f" class="">Vamos analisar algumas funcionalidades básicas que é possível usar pelo YAML para documentar cada aspecto mais usual de uma API.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="101c1f8d-3c23-8073-a591-e7bb5be4ea94"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="101c1f8d-3c23-802b-9d8b-c983cdfb1a03" class=""><strong>Para maiores e profundos conhecimento, verifique a página da especificação mais recente em:</strong></p><figure id="101c1f8d-3c23-8002-87cd-cb644a9d4793"><a href="https://spec.openapis.org/oas/latest.html" class="block-color-default_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">OpenAPI Specification v3.1.0</div><div class="bookmark-description">The OpenAPI Specification (OAS) defines a standard, programming language-agnostic interface description for HTTP APIs.</div></div><div class="bookmark-href"><img src="https://spec.openapis.org/favicon.ico" class="icon bookmark-icon"/>https://spec.openapis.org/oas/latest.html</div></div></a></figure><p id="101c1f8d-3c23-803e-a555-e4e89641b1c2" class="">A especificação da versão utilizada no curso pode ser encontrada em:</p><figure id="52a1fb38-e2cb-4ee7-a37f-aae99e9e744e"><a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">OpenAPI-Specification/versions/3.0.1.md at main · OAI/OpenAPI-Specification</div><div class="bookmark-description">The OpenAPI Specification Repository. Contribute to OAI/OpenAPI-Specification development by creating an account on GitHub.</div></div><div class="bookmark-href"><img src="https://github.com/fluidicon.png" class="icon bookmark-icon"/>https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md</div></div><img src="https://opengraph.githubassets.com/2ea89b842084cbf0360cbb09bf95f62825027d537ce27025f1cc3853150075bf/OAI/OpenAPI-Specification" class="bookmark-image"/></a></figure></div></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Informações básicas:</strong></summary><div class="indented"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6c3db47e-81cb-4575-9021-6ab235fa0ec4" class="code"><code class="language-YAML">## Versão da específicação da Open API em que este YAML se baseará.
+openapi: 3.0.3
+
+## Informação geral da API
+info:
+	## Título da documentação da API
+  title: &quot;Api Exemplo&quot;
+ 	## Descrição da API
+  description: &quot;Uma API de exemplo para a documentação&quot;
+ 	## Versão que esta API está aqui documentada
+  version: 1.0.0
+ 	## Link para uma página de Termos de Serviço da API caso haja alguma  
+  termsOfService: https://mockapi.io/projects/66d26dac184dce1713cd8e33
+ 	## Seção de um contato geral a qual um eventual dúvida possa ser ainda melhor 
+ 	## esclarecida
+  contact:
+    name: &quot;Suporte Devs&quot;
+    email: ramon.simao@gmail.com
+    url: https://mockapi.io/projects/66d26dac184dce1713cd8e33
+ 	## O tipo e link da licença de software que a API esteja regida.
+  license:
+    name: &quot;GPLv3&quot;
+    url: https://www.gnu.org/licenses/gpl-3.0.pt-br.html
+## Uma página que centralize documentos extras sobre a API, Devs ou Instituição
+## que a governa e por ela zela.
+externalDocs:
+  description: &quot;Documentação externa&quot;
+  url: https://github.com/mockapi-io/docs/wiki</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Informações técnicas da API:</strong></summary><div class="indented"><ul id="101c1f8d-3c23-80e5-adbc-e1777f7187c0" class="bulleted-list"><li style="list-style-type:disc"><strong>Servers e Paths</strong><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="101c1f8d-3c23-8073-85a1-c636f0a61ff6" class="code"><code class="language-YAML">## Lista de servidores que são a base para os endpoints documentados.
+servers: 
+  - url: http://localhost:8082/api/v1/docswagger/exemplo/
+    description: &quot;Descrição da Api de objetos json&quot;
+## Mapeamento dos caminhos dos recursos do endpoint para atender as requisições 
+## por determinados verbo http e cada uma de suas respostas.
+paths:
+	## Nome do recurso que não recebe nenhuma variável na path.
+  /json-completo:
+	  ## Verbo HTTP que será mapeado para este path.
+    get:
+	    ## Resumo do que e como será documentado para este verbo.
+      summary: &quot;Caso nenhum parâmetro seja in formado, então é retornado um array json com todos os tipos de estrutura de dados nele. Mas caso seja informado algum parâmetro de filtragem, então é retornado apenas os dados que satisfaçam o filtro informado através dos parâmetros.&quot;
+	    ## Essa tag indica que será criada na tela da documentação uma seção
+	    ## que irá agrupar a todos os verbos e recursos que a assinem com o 
+	    ## mesmo nome. Neste exemplo: &quot;Consulta&quot;.
+      tags: 
+        - Consulta
+      ## Mapeamento do parâmetro da requisição do tipo query que a requisição 
+      ## receberá. O tipo query é aquele que é passado em conjunto ao endpoint 
+      ## após o caracter &quot;?&quot;. Por exemplo: &quot;http://host/path?param=query&quot;.
+      parameters: 
+        - $ref: &quot;#/components/parameters/query_id&quot;
+      ## Mapeia na documentação todas as resposta previstas para o verbo e suas 
+      ## estruturas de dados do body da resposta.
+      responses:
+	      ## Mapeia um respose HTTP de status 200 (OK) que responderá um body com 
+	      ## conteúdo do tipo &quot;application/json&quot; sendo sua estrutura um array de 
+	      ## objetos, sendo eles no formato definido por umcomponente chamado 
+	      ## &quot;EstruturaJson&quot;.
+        200:
+          description: &quot;Dados consultados e retornados, caso existam, com sucesso!&quot;
+          content:
+            application/json:
+              schema:
+                type: array
+                items:  
+                  $ref: &quot;#/components/schemas/EstruturaJson&quot;
+ 	      ## Mapeia um respose HTTP de status 401(Unauthorized) que responderá um body com 
+	      ## conteúdo do tipo &quot;text/plain&quot; sendo um texto simples informado o motivo
+	      ## da chamada não estar autorizada para uma requisição.
+        401:
+          description: &quot;Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado.&quot;
+          content:
+            text/plain:
+              example: &quot;Token inválido ou expirado!&quot;
+	      ## Mapeia um respose HTTP de status 404 (Not Found) quando nenhum recurso
+	      ## que dê match com os filtros esperados para essa request seja encontrado
+	      ## no servidor.
+        400:
+          description: &quot;Quando nenhum registro que satisfaça a filtragem é localizado.&quot;
+	      ## Mapeia um respose HTTP de status 500 (Internal Server Error) que 
+	      ## responderá um body com conteúdo do tipo &quot;application/json&quot; sendo sua 
+	      ## estrutura objeto json, da resposta padrão do servidor Toncat informando 
+	      ## que houve um falha ao processar a requisição no lado do servidor e poderá 
+	      ## até mesmo poderá ser um conteúdo do tipo &quot;text/plain&quot; com um simples 
+	      ## texto justificando o motivo do 500.
+        500:
+          description: &quot;Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor.&quot;
+          content:
+            text/plain:
+              example: &quot;Falha ao converter o parâmetro \&quot;ID\&quot; de String para Long&quot;
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/RetornoPadraoServidor&quot;
+    post:
+      summary: &quot;Cadastra um novo Objeto json em memória que poderá ser consultado posteriormente.&quot;
+	    ## Essa tag indica que será criada na tela da documentação uma seção
+	    ## que irá agrupar a todos os verbos e recursos que a assinem com o 
+	    ## mesmo nome. Neste exemplo: &quot;Cadastro&quot;.
+      tags: 
+        - Cadastro
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: &quot;#/components/schemas/EstruturaJsonSemId&quot;
+      responses:
+        201:
+          description: &quot;Objeto json cadastrado com um novo ID&quot;
+          content:
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/EstruturaJson&quot;
+        400:
+          description: &quot;Caso os dados do payload estejam em desacordo com o esperado&quot;
+          content:
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/RetornoPadraoServidor&quot;
+        401:
+          description: &quot;Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado.&quot;
+          content:
+            text/plain:
+              example: &quot;Token inválido ou expirado!&quot;
+        500:
+          description: &quot;Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor.&quot;
+          content:
+            text/plain:
+              example: &quot;Falha ao cadastrar o objeto Json em memória.&quot;
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/RetornoPadraoServidor&quot;
+	## Nome do recurso que recebe um variável na path.
+  /json-completo/{id}:
+    put:
+      summary: &quot;Altera toda estrutura do objeto json de uma só vez com o dados fornecidos no json do payload.&quot;
+      tags: 
+        - Cadastro
+      ## Mapeamento do parâmetro da requisição do tipo path que a requisição 
+      ## receberá. O tipo path é aquele que é passado como parte do endpoint. 
+      ## Por exemplo: &quot;http://host/1/path&quot;.
+      parameters: 
+        - $ref: &quot;#/components/parameters/id&quot;
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: &quot;#/components/schemas/EstruturaJsonSemId&quot;
+      responses:
+        200:
+          description: &quot;Estrutura atualizada por completo&quot;
+          content:
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/EstruturaJson&quot;
+        400:
+          description: &quot;Caso os dados do payload estejam em desacordo com o esperado&quot;
+          content:
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/RetornoPadraoServidor&quot;
+        401:
+          description: &quot;Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado.&quot;
+          content:
+            text/plain:
+              example: &quot;Token inválido ou expirado!&quot;
+        404:
+          description: &quot;Quando o objeto que se pretende atualizar não existe no cadastro em memória, não é possível realizar a alteração por motivos óbvios.&quot;
+        500:
+          description: &quot;Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor.&quot;
+          content:
+            text/plain:
+              example: &quot;Alguma mensagem de erro causada no servidor.&quot;
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/RetornoPadraoServidor&quot;
+    delete:
+      summary: &quot;Remove a estrutura json através do seu id de cadastro&quot;
+      tags: 
+        - Cadastro
+      parameters: 
+        - $ref: &quot;#/components/parameters/id&quot;
+      responses:
+        200:
+          description: &quot;Conteúdo excluído permanentemente&quot;
+          content:
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/EstruturaJson&quot;
+        400:
+          description: &quot;Caso os dados do payload estejam em desacordo com o esperado&quot;
+          content:
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/RetornoPadraoServidor&quot;
+        401:
+          description: &quot;Quando a segurança está habilitada no servidor e o token não tenha sido informado / esteja inválido / expirado.&quot;
+          content:
+            text/plain:
+              example: &quot;Token inválido ou expirado!&quot;
+        404:
+          description: &quot;Quando o objeto que se pretende remover não existe no cadastro em memória, não é possível realizar a alteração por motivos óbvios.&quot;
+        500:
+          description: &quot;Caso ocorra alguma falha não tratada ou não seja possível de tratar do lado do servidor.&quot;
+          content:
+            text/plain:
+              example: &quot;Alguma mensagem de erro causada no servidor.&quot;
+            application/json:
+              schema:
+                $ref: &quot;#/components/schemas/RetornoPadraoServidor&quot;</code></pre></li></ul><ul id="101c1f8d-3c23-806a-bba7-e9a8e34fd7cd" class="bulleted-list"><li style="list-style-type:disc">Segurança<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="101c1f8d-3c23-8059-b9fc-c256bd090a9f" class="code"><code class="language-YAML">## Define no escopo principal da estrutura YAML as configurações de segurança
+## Definidas na seção de componentes. Essa seção poderia estar na seção dos
+## paths para atrtibuir essa segurança a um path específico ou na seção 
+## principal como esta, para que essa configuração se aplique a TODOS os 
+## paths
+security:
+  - authJwt: []</code></pre></li></ul><ul id="101c1f8d-3c23-8047-a977-dee6c43a6ea6" class="bulleted-list"><li style="list-style-type:disc">Componentes<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="101c1f8d-3c23-80d3-91f6-d9b5fbdb2704" class="code"><code class="language-YAML">## Essa seção tem como função definir componentes que poderão ser 
+## reaproveitados por todo o YAML como esquemas de objetos para o 
+## response ou request, parâmetros da requisição, reposnses completos, 
+## body de requisição e alguns outros mais.
+components:
+  ## Esquemas com as estruturas de objetos.
+  schemas:
+    EstruturaJson:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: &#x27;^\d&#x27; 
+        data:
+          type: string
+          format: date-time
+        string:
+          type: string
+        numero:
+          type: integer
+        booleano:
+          type: boolean
+    EstruturaJsonSemId:
+      type: object
+      properties:
+        data:
+          type: string
+          format: date-time
+        string:
+          type: string
+        numero:
+          type: integer
+        booleano:
+          type: boolean      
+    RetornoPadraoServidor:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        error:
+          type: string
+        path:
+          type: string
+          format: path
+  ## Esquemas com a estratégia de segurança.
+  securitySchemes:
+    authJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  ## Parâmetros da requisição.
+  parameters:
+    id:
+      name: id
+      description: &quot;Identificador do objeto json ao qual se pretende manipular&quot;
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: &#x27;^\d&#x27;
+        minimum: 1
+    query_id:
+      name: id
+      description: &quot;Identificador do objeto json ao qual se pretende manipular&quot;
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: &#x27;^\d&#x27;
+        minimum: 1</code></pre></li></ul></div></details><h1 id="101c1f8d-3c23-80a5-af47-ce68a66fa1d8" class=""><strong>Criar uma documentação pelo código </strong></h1><hr id="f9708cd3-9d05-490f-b58e-85d9c6a9d00d"/><p id="101c1f8d-3c23-80b3-b2db-d31f76d6950e" class="">O curso apresentou o método principal de gerar esse tipo de documentação, mas é importante ressaltar que o Swagger oferece suporte para a criação automática dessa documentação em aproximadamente 20 linguagens. Nessas linguagens, é possível configurar o Swagger diretamente na aplicação, permitindo que ela gere automaticamente o YAML e crie sua própria interface Swagger UI de maneira simples e eficiente.</p><p id="101c1f8d-3c23-803c-9823-ee8af9cbe56a" class="">
+</p><p id="101c1f8d-3c23-801b-8f69-d7a1548df33c" class="">Um exemplo disso é o Java, que oferece diversas ferramentas para gerar essa documentação automaticamente, tais como:</p><figure id="cbda41b4-e364-40d5-8635-2f4f16e7176d"><a href="https://swagger.io/tools/open-source/open-source-integrations/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Java Integration | Swagger Open Source</div><div class="bookmark-description">Review our list of libraries and frameworks that easily integrate within the Swagger ecosystem. Learn more.</div></div><div class="bookmark-href"><img src="https://swagger.io/swagger/media/assets/swagger_fav.png" class="icon bookmark-icon"/>https://swagger.io/tools/open-source/open-source-integrations/</div></div></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
